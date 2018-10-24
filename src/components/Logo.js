@@ -16,7 +16,7 @@ class Logo extends Component {
 		this.camera.top = HEIGHT / 8;
 		this.camera.bottom = HEIGHT / -8;
     this.camera.updateProjectionMatrix();
-    this.refreshText()
+    // this.refreshText()
   }
   onMouseMove = (e) => {
     e.preventDefault();

@@ -1,15 +1,25 @@
-import React from "react";
-import Helmet from "react-helmet";
-import styled from "styled-components";
-// import ReactAudioPlayer from "react-audio-player";
-import { Link, withPrefix, StaticQuery, graphql } from "gatsby";
+import React from 'react';
+import Helmet from 'react-helmet';
+import styled, { injectGlobal } from 'styled-components';
+import ReactHowler from 'react-howler'
+import { Link, withPrefix, StaticQuery, graphql } from 'gatsby';
+import { connect } from 'react-redux'
+
+import NavPlayer from '../components/NavPlayer'
 
 //import './index.css'
 import "../assets/css/grid.css";
 import "../assets/css/animate.css";
 import "../assets/css/styles.css";
 
-import Logo from "../components/Logo";
+import Logo from '../components/Logo';
+
+injectGlobal`
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+`
 
 const HeaderContainer = styled.div`
   width: 100%;
@@ -28,6 +38,9 @@ const Nav = styled.nav`
   width: 100vw;
   padding: 7px 16px;
   border-bottom: 1px solid #000;
+  z-index: 1;
+  top: 0;
+  background: white;
 `;
 
 const Content = styled.main`
@@ -46,23 +59,25 @@ const Header = props => {
   const isHomepage = props.location.pathname === withPrefix("/");
 
   return (
-    <HeaderContainer>
+    <div>
       <Nav>
-        {/* <NavLink to="/">Index</NavLink>
-        <NavLink to="/about">About</NavLink> */}
-        <Link to="/a/">Tets</Link>
+        <NavLink to="/">Index</NavLink>
+        <NavPlayer>{props.currentName}</NavPlayer>
+        <NavLink to="/about">About</NavLink>
       </Nav>
-      <Logo
-        text="Brandon Berry"
-        material="gold"
-        height={20}
-        fontName="FrakturB"
-        style={{ zIndex: -1, opacity: isHomepage ? 1 : 0 }}
-      />
-    </HeaderContainer>
+      <HeaderContainer style={{zIndex: -1}}>
+        <Logo
+          text="Brandon Berry"
+          material="gold"
+          height={20}
+          fontName="FrakturB"
+          style={{ zIndex: -1, opacity: isHomepage ? 1 : 0 }}
+        />
+      </HeaderContainer>
+    </div>  
   );
 };
-export default ({ children, location }) => (
+const Layout = props => (
   <StaticQuery
     query={graphql`
       query AudioQuery {
@@ -83,7 +98,7 @@ export default ({ children, location }) => (
         }
       }
     `}
-    render={({ data }) => (
+    render={data => (
       <div>
         <Helmet
           title="Brandon Berry"
@@ -92,17 +107,26 @@ export default ({ children, location }) => (
             { name: "keywords", content: "sample, something" }
           ]}
         />
-        {/* <ReactAudioPlayer
-      src={`http:${data.allContentfulMix.edges[0].node.mixFile.file.url}`}
-      autoPlay
-      
-    />
-    {console.log(children, location, data)} */}
-        <Header location={location} />
-        <Content homepage={location.pathname === withPrefix("/")}>
-          {children}
+        <ReactHowler
+          src={`http:${props.currentFile}`}
+          playing={props.playing}
+          preload
+        />
+        <Header location={props.location} currentName={props.currentName} playing={props.playing}/>
+        <Content homepage={props.location.pathname === withPrefix("/")}>
+          {props.children}
         </Content>
       </div>
     )}
   />
 );
+
+const mapStateToProps = ({ playing, currentFile, currentName }) => {
+  return { playing, currentFile, currentName }
+}
+
+
+
+export default connect(
+  mapStateToProps
+)(Layout)

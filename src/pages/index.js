@@ -1,9 +1,10 @@
 import React from 'react'
-import { StaticQuery, graphql } from "gatsby";
-import Layout from "../components/layout"
+import { connect } from 'react-redux'
+import { StaticQuery, graphql } from 'gatsby'
 import Cd from '../components/Cd'
+import moment from 'moment'
 
-const IndexPage = (props, {data}) => {
+const IndexPage = props => {
   return (
     <StaticQuery
       query={
@@ -25,8 +26,8 @@ const IndexPage = (props, {data}) => {
                 }
                 thumbnailImage {
                   id
-                  sizes(maxWidth: 374, maxHeight: 374, resizingBehavior: SCALE) {
-                    ...GatsbyContentfulSizes_noBase64 
+                  fluid(maxWidth: 374, maxHeight: 374) {
+                    ...GatsbyContentfulFluid_tracedSVG
                   }
                 }
                 fields {
@@ -40,22 +41,21 @@ const IndexPage = (props, {data}) => {
       
       }
       render={data => (
-        <Layout location={props.location}>
-          <main className="animated fadeInUp">
-              {data.allContentfulMix.edges.reverse().map(({ node }, i) =>
-                <Cd key={node.id}
-                  mix={node.fields.slug}
-                  date={node.date}
-                  img={node.thumbnailImage}
-                  title={`${i}. ${node.title}`}
-                  mixFile={node.mixFile && (node.mixFile.file.url || "")}
-                  mixName={node.mixFile && (node.mixFile.file.fileName || "")} />
-              )}
-          </main>
-        </Layout>
+        <main className="animated fadeInUp">
+          { data.allContentfulMix.edges.sort((a,b) => moment.utc(a.node.date).diff(moment.utc(b.node.date))).slice(0).reverse().map(({ node }, i, arr) =>
+            <Cd key={node.id}
+              mix={node.fields.slug}
+              date={node.date}
+              img={node.thumbnailImage}
+              title={`${arr.length-i}. ${node.title}`}
+              mixFile={node.mixFile && (node.mixFile.file.url || "")}
+              mixName={node.mixFile && (node.mixFile.file.fileName || "")}
+            />
+          ) }
+        </main>
       )}
     />
   )
 }
 
-export default IndexPage
+export default connect()(IndexPage)

@@ -8,7 +8,7 @@ import PlayButton from '../components/PlayButton'
 var moment = require('moment');
 
 
-const CdCase = styled.div`
+const CdCase = styled(Link)`
   width: 347px;
   height: 303px;
   box-shadow: 6px 8px 4px rgba(0, 0, 0, 0.5);
@@ -27,7 +27,6 @@ const CdBorder = styled.div`
   width: 347px;
   height: 303px;
   background-color: #000;
-  margin: 90px auto;
 `
 
 const Spine = styled.div`
@@ -41,7 +40,7 @@ const Insert = styled.div`
   justify-items: center;
   align-items: center;
   grid-template-rows: .75fr .25fr;
-  .gatsby-image-outer-wrapper {
+  .gatsby-image-wrapper {
     width: 187px;
   }
 `
@@ -68,31 +67,41 @@ const ColorBlock = styled.div`
 const EmptyImg = props => (
   <ColorBlock bg={props.colors[Math.floor(Math.random() * props.colors.length)]}/>
 )
-
 export default class Cd extends Component {
+  state = {
+    pos: null
+  }
+  generateMargin = n => `90px calc(${n}% - ${(n > 50 ? 400 : -53)}px)`
+  componentDidMount() {
+    this.setState({pos: this.generateMargin(Math.floor(Math.random() * 101))})
+  }
   render() {
     return (
-      <CdBorder>
-        <CdCase to='/'>
-          <Spine>
-            <PlayButton 
-              playing={false}
-              currentFile={""}
-              currentName={""}
-              mixFile={this.props.mixFile}
-              mixName={this.props.mixName} />
-            <Date>
-              {moment(this.props.date).format('MM/DD/YYYY')}
-            </Date>
-          </Spine>
-          <Insert>
-            {this.props.img ? <Img sizes={this.props.img.sizes}
-            backgroundColor={"#eaeaea"}
-            fadeIn={true}/> : <EmptyImg colors={['#FFF7CD', '#FFB35A', '#5D5AFF']}/>}
-            <Title>{this.props.title}</Title>
-          </Insert>
-        </CdCase>
-      </CdBorder>
+      <div style={{
+        margin: this.state.pos
+      }}>
+        <CdBorder>
+          <CdCase to={this.props.mix}>
+            <Spine>
+              <PlayButton 
+                playing={false}
+                currentFile={""}
+                currentName={""}
+                mixFile={this.props.mixFile}
+                mixName={this.props.mixName} />
+              <Date>
+                {moment(this.props.date).format('MM/DD/YYYY')}
+              </Date>
+            </Spine>
+            <Insert>
+              {this.props.img ? <Img fluid={this.props.img.fluid}
+              backgroundColor={"#eaeaea"}
+              fadeIn={true}/> : <EmptyImg colors={['#FFF7CD', '#FFB35A', '#5D5AFF']}/>}
+              <Title>{this.props.title}</Title>
+            </Insert>
+          </CdCase>
+        </CdBorder>
+      </div>      
     )
   }
 }

@@ -5,12 +5,12 @@
 
 var Detector = {
 
-	canvas: !! window.CanvasRenderingContext2D,
+	canvas: !! global.CanvasRenderingContext2D,
 	webgl: ( function () {
 
 		try {
 
-			var canvas = document.createElement( 'canvas' ); return !! ( window.WebGLRenderingContext && ( canvas.getContext( 'webgl' ) || canvas.getContext( 'experimental-webgl' ) ) );
+			var canvas = document.createElement( 'canvas' ); return !! ( global.WebGLRenderingContext && ( canvas.getContext( 'webgl' ) || canvas.getContext( 'experimental-webgl' ) ) );
 
 		} catch ( e ) {
 
@@ -23,7 +23,7 @@ var Detector = {
 
 		try {
 
-			var canvas = document.createElement( 'canvas' ); return !! ( window.WebGL2RenderingContext && ( canvas.getContext( 'webgl2' ) ) );
+			var canvas = document.createElement( 'canvas' ); return !! ( global.WebGL2RenderingContext && ( canvas.getContext( 'webgl2' ) ) );
 
 		} catch ( e ) {
 
@@ -32,8 +32,8 @@ var Detector = {
 		}
 
 	} )(),
-	workers: !! window.Worker,
-	fileapi: window.File && window.FileReader && window.FileList && window.Blob,
+	workers: !! global.Worker,
+	fileapi: global.File && global.FileReader && global.FileList && global.Blob,
 
 	getWebGLErrorMessage: function () {
 
@@ -51,7 +51,7 @@ var Detector = {
 
 		if ( ! this.webgl ) {
 
-			element.innerHTML = window.WebGLRenderingContext ? [
+			element.innerHTML = global.WebGLRenderingContext ? [
 				'Your graphics card does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br />',
 				'Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.'
 			].join( '\n' ) : [

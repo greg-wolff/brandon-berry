@@ -1,4 +1,4 @@
-import { createStore as reduxCreateStore } from "redux"
+import { createStore as reduxCreateStore } from 'redux'
 
 const reducer = (state, action) => {
   switch(action.type) {
@@ -11,8 +11,10 @@ const reducer = (state, action) => {
     case `PAUSE`:
       return Object.assign({}, state, {
         playing: false,
-        currentFile: "",
-        currentName: ""
+      })
+    case `INIT`:
+      return Object.assign({}, state, {
+        mixes: action.mixes
       })
     default:
       return state
@@ -20,9 +22,10 @@ const reducer = (state, action) => {
 }
 
 const initialState = {
-  playing: false, 
+  playing: false,   
   currentFile: "",
-  currentName: ""
+  currentName: "",
+  mixes: null
 }
 
 const createStore = () => reduxCreateStore(reducer, initialState)

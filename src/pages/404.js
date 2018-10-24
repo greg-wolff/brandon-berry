@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Layout from "../components/layout"
-
 const ErrorText = styled.div `
   width: 100vw;
   height: 100%;
@@ -16,11 +14,9 @@ const ErrorText = styled.div `
 `
 
 const NotFoundPage = props => (
-  <Layout location={props.location}>
-    <ErrorText>
-      <p>404 — Page Not Found</p>
-    </ErrorText>
-  </Layout>
+  <ErrorText>
+    <p>404 — Page Not Found</p>
+  </ErrorText>
 )
 
 export default NotFoundPage

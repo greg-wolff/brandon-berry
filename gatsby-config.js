@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
   siteMetadata: {
     title: `Brandon Berry`,
@@ -5,11 +7,13 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
+    `gatsby-plugin-netlify`,
+    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-source-contentful`,
       options: {
-        spaceId: `06dfskiww5fu`,
-        accessToken: `99c776c3846b3feb697d604696bc1f7a82c06e96a995bd34fdab6a3c103a45e2`,
+        spaceId: process.env.CONTENTFUL_SPACE_ID || ``,
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || ``,
       },
     },
     {
@@ -21,12 +25,17 @@ module.exports = {
       }
     },
     {
+      resolve: `gatsby-plugin-layout`,
+      options: {
+          component: require.resolve(`./src/components/layout.js`)
+      }
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `src`,
         path: `${__dirname}/src/`,
       },
-    },
-    `gatsby-plugin-netlify`
+    }
   ],
 }

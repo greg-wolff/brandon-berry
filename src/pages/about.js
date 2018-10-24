@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import Layout from "../components/layout"
 
 const AboutText = styled.div`
 
@@ -52,10 +51,9 @@ const AboutText = styled.div`
 //     }
 // `
 
-const AboutPage = ({ props, data }) => (
-  <Layout location={props.location}>
-    {/* <AboutText className="col-lg-4" dangerouslySetInnerHTML={{__html: data.contentfulAbout.aboutParagraph.aboutParagraph.replace(/(?:\r\n|\r|\n)/g, '<br />')}} /> */}
-    <AboutText className="col-lg-4" >asdf</AboutText>
+const AboutPage = (props, { data }) => (
+  <div>
+    <AboutText className="col-lg-4">asdf</AboutText>
     {/* <LinkContainer>
       <SocialLink className="col-lg-">
         {data.contentfulAbout.phone}
@@ -74,7 +72,7 @@ const AboutPage = ({ props, data }) => (
         </a>
       </SocialLink>
     </LinkContainer> */}
-  </Layout>
+  </div>
 )
 
 export default AboutPage

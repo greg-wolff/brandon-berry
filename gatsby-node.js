@@ -7,8 +7,6 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
   if (node.internal.type === "ContentfulMix") {
     let slug = node.title.replace(/\s+/g, '-').toLowerCase().replace(/[^a-z0-9 -]/g, '');
 
-    console.log(slug)
-
     createNodeField({
       node,
       name: `slug`,
