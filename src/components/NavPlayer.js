@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux'
+import media from '../utils/media'
 
 import PlaySvg from '../assets/images/play.svg'
 import PauseSvg from '../assets/images/pause.svg'
@@ -14,6 +15,9 @@ const MarqueeDisplay = styled.div`
   &:hover {
     cursor: url(${props => props.playing ? PauseSvg : PlaySvg}) 6 8, auto;
   }
+  ${media.tablet`
+    width: 220px;
+  `}
 `
 
 const Marquee = styled.span`

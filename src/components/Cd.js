@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 import styled from 'styled-components'
+import { isBrowser } from "react-device-detect";
+import media from '../utils/media'
 
 import PlayButton from '../components/PlayButton'
 
@@ -27,6 +29,9 @@ const CdBorder = styled.div`
   width: 347px;
   height: 303px;
   background-color: #000;
+  ${media.tablet`
+    margin: 60px auto;
+  `}
 `
 
 const Spine = styled.div`
@@ -78,7 +83,7 @@ export default class Cd extends Component {
   render() {
     return (
       <div style={{
-        margin: this.state.pos
+        margin: isBrowser && this.state.pos
       }}>
         <CdBorder>
           <CdCase to={this.props.mix}>

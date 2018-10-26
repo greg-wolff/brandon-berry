@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Detector from '../assets/js/Detector'
 import FrakturB from '../assets/fonts/FrakturB.json'
 import envMap from '../assets/images/env.jpg'
+import envMap2 from '../assets/images/envmap.jpg'
 
 const THREE = require("three");
 
@@ -22,6 +23,8 @@ class Logo extends Component {
     e.preventDefault();
     // console.log((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1, 0)
     // this.directionalLight.position.set(1, -(e.clientY / window.innerHeight) * 2 + 1, 0)  
+    this.group.rotation.y = ((e.clientX / window.innerWidth) - .5)/4
+    this.group.rotation.x = ((e.clientY / window.innerHeight) - .5)/4
     this.directionalLight.position.set((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1, 0)  
   }
   start = () => {
@@ -31,9 +34,9 @@ class Logo extends Component {
     cancelAnimationFrame(this.frameId)
   }
   animate = () => {
-    if (this.ambient.intensity <= 0.2) this.ambient.intensity += .01;
-    if (this.point.intensity <= 1) this.point.intensity += 0.1;
-    if (this.directionalLight.intensity <= 5) this.directionalLight.intensity += 0.1;  
+    // if (this.ambient.intensity <= 0.2) this.ambient.intensity += .01;
+    // if (this.point.intensity <= 1) this.point.intensity += 0.1;
+    // if (this.directionalLight.intensity <= 5) this.directionalLight.intensity += 0.1;  
 
     this.renderer.render(this.scene, this.camera)
     this.frameId = window.requestAnimationFrame(this.animate)
@@ -121,7 +124,22 @@ class Logo extends Component {
           }) // side
         ],
         "silver": [],
-        "royal": []
+        "royal": [
+          new THREE.MeshStandardMaterial({
+            color: "#35d3ff",
+            emissive: "#212faf",
+            roughness: 0.15,
+            metalness: 1,
+            envMap: emap
+          }), // front
+          new THREE.MeshStandardMaterial({
+            color: "#35d3ff",
+            emissive: "#212faf",
+            roughness: 0.15,
+            metalness: 1,
+            envMap: emap
+          }) // side
+        ]
       })[type]
   
       let textGeo = new THREE.TextGeometry( this.props.text, {

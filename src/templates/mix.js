@@ -6,6 +6,8 @@ import Img from 'gatsby-image'
 import styled from 'styled-components'
 import HoverPlay from '../components/HoverPlay'
 import moment from 'moment'
+import media from '../utils/media'
+import { isBrowser } from 'react-device-detect'
 
 const DetailLayout = styled.div`
   display: grid;
@@ -14,6 +16,10 @@ const DetailLayout = styled.div`
   height: calc(100vh - 35px);
   width: 100vw;
   overflow-y: scroll;
+  ${media.tablet`
+    grid-template-columns: 1fr;
+    grid-template-rows: .8fr .2fr;
+  `}
 `
 
 const MixColumn = styled.div`
@@ -26,6 +32,12 @@ const MixColumn = styled.div`
   position: sticky;
   top: 0;
   height: calc(100vh - 35px);
+  ${media.tablet`
+    position: initial;
+    top: initial;
+    height: initial;
+    border-right: none;
+  `}
 `
 
 const NextMix = styled(Link)`
@@ -41,28 +53,55 @@ const NextMix = styled(Link)`
   &:hover {
     text-decoration: underline;
   }
+  ${media.tablet`
+    border-bottom: 1px solid #000;
+  `}
 `
 
 const DetailColumn = styled.div`
   padding: 77px 52px;
+  ${media.tablet`
+    width: 100vw;
+    box-sizing: border-box;
+  `}
 `
 
 const MixHeader = styled.div`
   font-size: 26pt;
   margin-bottom: 12pt;
+  ${media.tablet`
+    font-size: 22pt;
+  `}
 `
 
 const MixLink = styled.a`
-  font-size: ${props => props.small ? '12pt' : '16pt'};
+  font-size: 16pt;
   color: black;
   text-decoration: none;
   &:hover {
     text-decoration: underline;
   }
+  ${media.tablet`
+    font-size: 13pt;
+  `}
 `
 
 const MixTracklist = styled(ReactMarkdown)`
   margin-top: 50pt;
+  thead {
+    text-align: left;
+  }
+  ${media.tablet`
+    overflow: scroll;
+    width: calc(100% + 32px);
+    margin-left: -32px;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 25px 0 25px 30px;
+    table {
+      width: 170%
+    }
+  `}
 `
 
 const Platter = styled(Img)`
@@ -113,6 +152,9 @@ const RecordBox = styled.div`
   display: grid;
   align-items: center;
   justify-items: center;
+  ${media.tablet`
+    margin: 60px 0;
+  `}
 `
 
 const RecordLabel = styled.span`
@@ -123,6 +165,11 @@ const RecordLabel = styled.span`
   text-transform: uppercase;
   position: absolute;
   margin-top: 80px;
+  ${media.tablet`
+    margin-top: 0;
+    position: relative;
+    bottom: 43px;
+  `}
 `
 
 const Arrow = styled(Link)`
@@ -159,7 +206,7 @@ const ProjectInfo = props => {
         }
       </MixColumn>
       <DetailColumn>
-        <Arrow to='/'>←</Arrow>
+        {isBrowser && <Arrow to='/'>←</Arrow>}
         <MixHeader>{props.date}<br/>{props.title}</MixHeader>
         <MixLink href={props.mixFile} download={props.mixName}>Download Mix</MixLink>
         <MixTracklist source={props.trackList.tracklist}/>

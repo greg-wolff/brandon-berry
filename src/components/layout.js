@@ -4,7 +4,9 @@ import styled, { injectGlobal } from 'styled-components';
 import ReactHowler from 'react-howler'
 import { Link, withPrefix, StaticQuery, graphql } from 'gatsby';
 import { connect } from 'react-redux'
+import { isMobile } from 'react-device-detect'
 
+import Transition from "../components/transition"
 import NavPlayer from '../components/NavPlayer'
 
 //import './index.css'
@@ -30,6 +32,7 @@ const HeaderContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
 const Nav = styled.nav`
   box-sizing: border-box;
   position: fixed;
@@ -41,10 +44,6 @@ const Nav = styled.nav`
   z-index: 1;
   top: 0;
   background: white;
-`;
-
-const Content = styled.main`
-  margin-top: ${props => (props.homepage ? "90vh" : "35px")};
 `;
 
 const NavLink = styled(Link)`
@@ -61,15 +60,17 @@ const Header = props => {
   return (
     <div>
       <Nav>
-        <NavLink to="/">Index</NavLink>
+        { (!isHomepage && isMobile) ? 
+        <NavLink to="/" style={{ fontFamily: `Times New Roman`, fontSize: `19pt`, lineHeight: `0.65` }}>←</NavLink> :
+        <NavLink to="/">Index</NavLink> }
         <NavPlayer>{props.currentName}</NavPlayer>
         <NavLink to="/about">About</NavLink>
       </Nav>
       <HeaderContainer style={{zIndex: -1}}>
         <Logo
-          text="Brandon Berry"
-          material="gold"
-          height={20}
+          text="Emerald Air"
+          material="royal"
+          height={1}
           fontName="FrakturB"
           style={{ zIndex: -1, opacity: isHomepage ? 1 : 0 }}
         />
@@ -77,6 +78,7 @@ const Header = props => {
     </div>  
   );
 };
+
 const Layout = props => (
   <StaticQuery
     query={graphql`
@@ -113,9 +115,11 @@ const Layout = props => (
           preload
         />
         <Header location={props.location} currentName={props.currentName} playing={props.playing}/>
-        <Content homepage={props.location.pathname === withPrefix("/")}>
-          {props.children}
-        </Content>
+        <div style={{marginTop: `35px`}}>
+          <Transition location={props.location}>
+            {props.children}
+          </Transition>
+        </div>
       </div>
     )}
   />
@@ -124,8 +128,6 @@ const Layout = props => (
 const mapStateToProps = ({ playing, currentFile, currentName }) => {
   return { playing, currentFile, currentName }
 }
-
-
 
 export default connect(
   mapStateToProps
