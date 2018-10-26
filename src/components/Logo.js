@@ -3,6 +3,7 @@ import Detector from '../assets/js/Detector'
 import FrakturB from '../assets/fonts/FrakturB.json'
 import envMap from '../assets/images/env.jpg'
 import envMap2 from '../assets/images/envmap.jpg'
+import {ColorEdgesMaterial} from 'postprocessing/src/materials/ColorEdgesMaterial.js'
 
 const THREE = require("three");
 
@@ -34,9 +35,9 @@ class Logo extends Component {
     cancelAnimationFrame(this.frameId)
   }
   animate = () => {
-    // if (this.ambient.intensity <= 0.2) this.ambient.intensity += .01;
-    // if (this.point.intensity <= 1) this.point.intensity += 0.1;
-    // if (this.directionalLight.intensity <= 5) this.directionalLight.intensity += 0.1;  
+    if (this.ambient.intensity <= 0.2) this.ambient.intensity += .001;
+    if (this.point.intensity <= 1) this.point.intensity += 0.01;
+    if (this.directionalLight.intensity <= 5) this.directionalLight.intensity += 0.01;  
 
     this.renderer.render(this.scene, this.camera)
     this.frameId = window.requestAnimationFrame(this.animate)
@@ -156,10 +157,12 @@ class Logo extends Component {
       textGeo.computeFaceNormals()
       textGeo.computeVertexNormals();
   
-      var centerOffset = -0.5 * ( textGeo.boundingBox.max.x - textGeo.boundingBox.min.x );
+      var centerOffsetX = -0.5 * ( textGeo.boundingBox.max.x - textGeo.boundingBox.min.x );
+      var centerOffsetY = (-0.5 * ( textGeo.boundingBox.max.y - textGeo.boundingBox.min.y )) + 1.7;
       textGeo = new THREE.BufferGeometry().fromGeometry( textGeo );
       this.textMesh = new THREE.Mesh( textGeo, material(this.props.material));
-      this.textMesh.position.x = centerOffset;
+      this.textMesh.position.x = centerOffsetX;
+      this.textMesh.position.y = centerOffsetY;
       this.textMesh.position.z = 0;
       this.textMesh.rotation.x = 0;
       this.textMesh.rotation.y = Math.PI * 2;
