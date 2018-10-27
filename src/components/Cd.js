@@ -9,7 +9,6 @@ import PlayButton from '../components/PlayButton'
 
 var moment = require('moment');
 
-
 const CdCase = styled(Link)`
   width: 347px;
   height: 303px;
@@ -20,17 +19,27 @@ const CdCase = styled(Link)`
   grid-gap: 1px;
   color: #000;
   text-decoration: none;
+  transition: all 0.2s ease;
+  transform: translateY(0);
   >div {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.5);
   }
-`
-
-const CdBorder = styled.div`
-  width: 347px;
-  height: 303px;
-  background-color: #000;
+  img {
+    opacity: ${props => props.trans && `0.5 !important`};
+  }
+  &:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+    img {
+      opacity: ${props => props.trans && `1 !important`};
+    }
+  }
+  margin: ${props => props.pos};
   ${media.tablet`
-    margin: 60px auto;
+    margin: 30px auto;
+    &:first-of-type {
+      margin-top: 60px;
+    }
   `}
 `
 
@@ -38,6 +47,7 @@ const Spine = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-right: 1px solid #000;
 `
 
 const Insert = styled.div`
@@ -82,31 +92,25 @@ export default class Cd extends Component {
   }
   render() {
     return (
-      <div style={{
-        margin: isBrowser && this.state.pos
-      }}>
-        <CdBorder>
-          <CdCase to={this.props.mix}>
-            <Spine>
-              <PlayButton 
-                playing={false}
-                currentFile={""}
-                currentName={""}
-                mixFile={this.props.mixFile}
-                mixName={this.props.mixName} />
-              <Date>
-                {moment(this.props.date).format('MM/DD/YYYY')}
-              </Date>
-            </Spine>
-            <Insert>
-              {this.props.img ? <Img fluid={this.props.img.fluid}
-              backgroundColor={"#eaeaea"}
-              fadeIn={true}/> : <EmptyImg colors={['#FFF7CD', '#FFB35A', '#5D5AFF']}/>}
-              <Title>{this.props.title}</Title>
-            </Insert>
-          </CdCase>
-        </CdBorder>
-      </div>      
+      <CdCase to={this.props.mix} pos={this.state.pos} trans={this.props.trans}>
+        <Spine>
+          <PlayButton 
+            playing={false}
+            currentFile={""}
+            currentName={""}
+            mixFile={this.props.mixFile}
+            mixName={this.props.mixName} />
+          <Date>
+            {moment(this.props.date).format('MM/DD/YYYY')}
+          </Date>
+        </Spine>
+        <Insert>
+          {this.props.img ? <Img fluid={this.props.img.fluid}
+          backgroundColor={"#eaeaea"}
+          fadeIn={true} /> : <EmptyImg colors={['#FFF7CD', '#FFB35A', '#5D5AFF']}/>}
+          <Title>{this.props.title}</Title>
+        </Insert>
+      </CdCase>
     )
   }
 }

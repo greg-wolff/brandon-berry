@@ -55,7 +55,7 @@ const NavLink = styled(Link)`
 `;
 
 const Header = props => {
-  const isHomepage = props.location.pathname === withPrefix("/");
+  const isHomepage = (props.location.pathname === withPrefix("/")) || (props.location.pathname === withPrefix("index2"));
 
   return (
     <div>
@@ -66,15 +66,17 @@ const Header = props => {
         <NavPlayer>{props.currentName}</NavPlayer>
         <NavLink to="/about">About</NavLink>
       </Nav>
-      <HeaderContainer style={{zIndex: -1}}>
-        <Logo
-          text="Emerald Air"
-          material="royal"
-          height={1}
-          fontName="FrakturB"
-          style={{ zIndex: -1, opacity: isHomepage ? 1 : 0 }}
-        />
-      </HeaderContainer>
+      { !isMobile &&
+        <HeaderContainer style={{zIndex: -1}}>
+          <Logo
+            text="Emerald Air"
+            material="royal"
+            height={1}
+            fontName="FrakturB"
+            style={{ zIndex: -1, opacity: isHomepage ? 1 : 0 }}
+          />
+        </HeaderContainer>
+      }
     </div>  
   );
 };
