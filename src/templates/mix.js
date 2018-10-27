@@ -206,7 +206,7 @@ const ProjectInfo = props => {
         }
       </MixColumn>
       <DetailColumn>
-        {isBrowser && <Arrow to='/'>←</Arrow>}
+        {isBrowser && <Arrow to='/static/'>←</Arrow>}
         <MixHeader>{props.date}<br/>{props.title}</MixHeader>
         <MixLink href={props.mixFile} download={props.mixName}>Download Mix</MixLink>
         <MixTracklist source={props.trackList.tracklist}/>

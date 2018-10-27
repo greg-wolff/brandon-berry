@@ -25,16 +25,20 @@ const CdCase = styled(Link)`
     background: rgba(255, 255, 255, 0.5);
   }
   img {
-    opacity: ${props => props.trans && `0.5 !important`};
+    opacity: 0.5 !important;
   }
   &:hover {
     background: rgba(255, 255, 255, 1);
     transform: translateY(-2px);
     img {
-      opacity: ${props => props.trans && `1 !important`};
+      opacity: 1 !important;
     }
   }
-  margin: ${props => props.pos};
+  /* margin: ${props => props.pos}; */
+  margin: 30px auto;
+  &:first-of-type {
+      margin-top: 400px;
+    }
   ${media.tablet`
     margin: 30px auto;
     &:first-of-type {
@@ -92,7 +96,7 @@ export default class Cd extends Component {
   }
   render() {
     return (
-      <CdCase to={this.props.mix} pos={this.state.pos} trans={this.props.trans.toString()}>
+      <CdCase to={this.props.mix} pos={this.state.pos}>
         <Spine>
           <PlayButton 
             playing={false}

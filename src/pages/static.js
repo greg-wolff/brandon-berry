@@ -4,12 +4,24 @@ import { StaticQuery, graphql } from 'gatsby'
 import Cd from '../components/Cd'
 import moment from 'moment'
 
-const IndexPage2 = props => {
+import { injectGlobal } from 'styled-components'
+
+injectGlobal`
+  main {
+    display: grid;
+    grid-template-columns: .5fr .5fr;
+    align-items: flex-end;
+    width: 800px;
+    margin: 0 auto;
+  }
+`
+
+const StaticPage = props => {
   return (
     <StaticQuery
       query={
         graphql`
-        query HomepageQuery2 {
+        query HomepageQueryStatic {
           allContentfulMix {
             edges {
               node {
@@ -50,7 +62,6 @@ const IndexPage2 = props => {
               title={`${arr.length-i}. ${node.title}`}
               mixFile={node.mixFile && (node.mixFile.file.url || "")}
               mixName={node.mixFile && (node.mixFile.file.fileName || "")}
-              trans
             />
           ) }
         </main>
@@ -59,4 +70,4 @@ const IndexPage2 = props => {
   )
 }
 
-export default connect()(IndexPage2)
+export default connect()(StaticPage)
