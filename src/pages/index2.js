@@ -4,12 +4,12 @@ import { StaticQuery, graphql } from 'gatsby'
 import Cd from '../components/Cd'
 import moment from 'moment'
 
-const IndexPage = props => {
+const IndexPage2 = props => {
   return (
     <StaticQuery
       query={
         graphql`
-        query HomepageQuery {
+        query HomepageQuery2 {
           allContentfulMix {
             edges {
               node {
@@ -59,4 +59,4 @@ const IndexPage = props => {
   )
 }
 
-export default connect()(IndexPage)
+export default connect()(IndexPage2)
