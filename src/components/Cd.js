@@ -92,7 +92,7 @@ export default class Cd extends Component {
   }
   render() {
     return (
-      <CdCase to={this.props.mix} pos={this.state.pos} trans={this.props.trans}>
+      <CdCase to={this.props.mix} pos={this.state.pos} trans={this.props.trans.toString()}>
         <Spine>
           <PlayButton 
             playing={false}
