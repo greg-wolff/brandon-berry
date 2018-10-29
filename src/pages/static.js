@@ -4,18 +4,6 @@ import { StaticQuery, graphql } from 'gatsby'
 import Cd from '../components/Cd'
 import moment from 'moment'
 
-import { injectGlobal } from 'styled-components'
-
-injectGlobal`
-  main {
-    display: grid;
-    grid-template-columns: .5fr .5fr;
-    align-items: flex-end;
-    width: 800px;
-    margin: 0 auto;
-  }
-`
-
 const StaticPage = props => {
   return (
     <StaticQuery

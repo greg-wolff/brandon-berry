@@ -34,11 +34,7 @@ const CdCase = styled(Link)`
       opacity: 1 !important;
     }
   }
-  /* margin: ${props => props.pos}; */
-  margin: 30px auto;
-  &:first-of-type {
-      margin-top: 400px;
-    }
+  margin: ${props => props.pos};
   ${media.tablet`
     margin: 30px auto;
     &:first-of-type {
@@ -90,9 +86,18 @@ export default class Cd extends Component {
   state = {
     pos: null
   }
-  generateMargin = n => `90px calc(${n}% - ${(n > 50 ? 400 : -53)}px)`
+  generateMargin = n => `80px calc(${n}% - ${(n > 40 ? 400 : -53)}px)`
   componentDidMount() {
-    this.setState({pos: this.generateMargin(Math.floor(Math.random() * 101))})
+    console.log(this.props.index)
+    switch(this.props.index) {
+      case 0: 
+        this.setState({ pos: this.generateMargin(100)})
+        break;
+      case 1: 
+        this.setState({ pos: this.generateMargin(6)})
+        break;
+      default: this.setState({ pos: this.generateMargin((this.props.index) ? Math.floor(Math.random() * 51) : (Math.floor(Math.random() * 51) + 51)) })
+    }
   }
   render() {
     return (

@@ -55,7 +55,7 @@ const NavLink = styled(Link)`
 `;
 
 const Header = props => {
-  const isHomepage = props.location.pathname === withPrefix("static/");
+  const isHomepage = props.location.pathname === withPrefix("/");
 
   return (
     <div>
@@ -67,9 +67,7 @@ const Header = props => {
         <NavLink to="/about">About</NavLink>
       </Nav>
       { !isMobile &&
-        <HeaderContainer style={{zIndex: -1, position: `initial`,
-          height: `200px`,
-          marginTop: `-150px`}}>
+        <HeaderContainer style={{zIndex: -1}}>
           <Logo
             text="Emerald Air"
             material="royal"

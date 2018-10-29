@@ -50,6 +50,7 @@ const IndexPage = props => {
               title={`${arr.length-i}. ${node.title}`}
               mixFile={node.mixFile && (node.mixFile.file.url || "")}
               mixName={node.mixFile && (node.mixFile.file.fileName || "")}
+              index={i}
             />
           ) }
         </main>
