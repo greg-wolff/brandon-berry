@@ -2,16 +2,17 @@ import React, { Component } from 'react'
 import Detector from '../assets/js/Detector'
 import FrakturB from '../assets/fonts/FrakturB.json'
 import envMap from '../assets/images/env.jpg'
-import envMap2 from '../assets/images/envmap.jpg'
-import {ColorEdgesMaterial} from 'postprocessing/src/materials/ColorEdgesMaterial.js'
+// import envMap2 from '../assets/images/envmap.jpg'
+import { isMobile } from 'react-device-detect'
+
+// import {ColorEdgesMaterial} from 'postprocessing/src/materials/ColorEdgesMaterial.js'
 
 const THREE = require("three");
-
+const WIDTH = global.innerWidth,
+      HEIGHT = (isMobile ? 130 : global.innerHeight);
 
 class Logo extends Component {
   onWindowResize = () => {
-    const WIDTH = window.innerWidth,
-      HEIGHT = window.innerHeight;
     this.renderer.setSize(WIDTH, HEIGHT);
 		this.camera.left = WIDTH / -8;
 		this.camera.right = WIDTH / 8;
@@ -24,9 +25,11 @@ class Logo extends Component {
     e.preventDefault();
     // console.log((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1, 0)
     // this.directionalLight.position.set(1, -(e.clientY / window.innerHeight) * 2 + 1, 0)  
-    this.group.rotation.y = ((e.clientX / window.innerWidth) - .5)/4
-    this.group.rotation.x = ((e.clientY / window.innerHeight) - .5)/4
-    this.directionalLight.position.set((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1, 0)  
+    if (!this.props.static) {
+      this.group.rotation.y = ((e.clientX / global.innerWidth) - .5)/4
+      this.group.rotation.x = ((e.clientY / global.innerHeight) - .5)/4
+      this.directionalLight.position.set((e.clientX / global.innerWidth) * 2 - 1, -(e.clientY / global.innerHeight) * 2 + 1, 0)  
+    }
   }
   start = () => {
     if (!this.frameId) this.frameId = requestAnimationFrame(this.animate)
@@ -47,10 +50,10 @@ class Logo extends Component {
     
     this.scene = new THREE.Scene();
     this.camera = new THREE.OrthographicCamera(
-      window.innerWidth / -8,
-      window.innerWidth / 8,
-      window.innerHeight / 8,
-      window.innerHeight / -8,
+      WIDTH / -8,
+      WIDTH / 8,
+      HEIGHT / 8,
+      HEIGHT / -8,
       0.1, // Near clipping pane
       1000 // Far clipping pane
     );
@@ -90,7 +93,7 @@ class Logo extends Component {
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     // Set size
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setSize(WIDTH, HEIGHT);
     // Set color
     this.renderer.setClearColor(0xffffff);
     this.renderer.gammaOutput = true;
@@ -145,11 +148,11 @@ class Logo extends Component {
   
       let textGeo = new THREE.TextGeometry( this.props.text, {
         font: new THREE.Font(FrakturB),
-        size: window.innerWidth * 0.0173611111,
+        size: (isMobile ? WIDTH * .033 : WIDTH * 0.0173611111),
         height: this.props.height,
-        curveSegments: window.innerWidth * 0.00277777778,
-        bevelThickness: window.innerWidth * 0.00555555556,
-        bevelSize: window.innerWidth * 0.00104166667,
+        curveSegments: (isMobile ? WIDTH * 0.0048 : WIDTH * 0.00277777778),
+        bevelThickness: (isMobile ? WIDTH * 0.00960000001 : WIDTH * 0.00555555556),
+        bevelSize: (isMobile ? WIDTH * 0.00180000001 : WIDTH * 0.00104166667),
         bevelEnabled: true
       });
   

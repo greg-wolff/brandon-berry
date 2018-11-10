@@ -1,92 +1,67 @@
 import React from 'react'
+import ReactMarkdown from 'react-markdown'
 import styled from 'styled-components'
+import { StaticQuery, graphql } from 'gatsby'
+import Img from 'gatsby-image'
 
-const AboutText = styled.div`
+import ImgCursor from '../components/ImgCursor';
 
-    margin: 0px 25px;
-    text-transform: uppercase;
-    font-size: 16px;
-    letter-spacing: 1px;
-
-    @media only screen and (min-width: 800px) {
-      padding-top: 100px;
-      margin: 0px 40px;
-    }
-
+const AboutLayout = styled.div`
+  display: grid;
+  width: 40%;
+  margin: 90px auto;
 `
 
-// const SocialLink = styled.div`
+const AboutText = styled(ReactMarkdown)`
+  width: 50%;
+  transform: scale(1.5);
+  color: red;
+`
 
-//   margin-top: 5px;
+/* 
+  const wordClip = (s, wl=50) => {
+   let flag = 0;
+   return s.split("").map((el, i, arr) => { 
+     ((flag >= wl) || (flag > (wl-20) && arr[i-1] === " ")) ? flag = 0 : flag++;
+     return ((flag > (wl-20)) && (el === " ")) ? "\n" : el;
+   }).join("");
+  }
+*/
 
-//   a {
-//     text-decoration: none;
-//     color: black;
-//     transition: opacity 200ms ease-in-out;
-//   }
-
-//   a:hover {
-//       opacity: 0.6;
-//   }
-
-//   @media only screen and (min-width: 800px) {
-//     left: 40px;
-//     bottom: 40px;
-//     margin-top: 12px;
-//   }
-// `
-
-// const LinkContainer = styled.div`
-
-//     position: fixed;
-//     text-transform: uppercase;
-//     font-size: 13px;
-//     letter-spacing: 1px;
-//     bottom: 25px;
-//     left: 25px;
-
-//     @media only screen and (min-width: 800px) {
-//       left: 40px;
-//       bottom: 40px;
-//     }
-// `
-
-const AboutPage = (props, { data }) => (
-  <div>
-    <AboutText className="col-lg-4">asdf</AboutText>
-    {/* <LinkContainer>
-      <SocialLink className="col-lg-">
-        {data.contentfulAbout.phone}
-      </SocialLink>
-
-      <SocialLink>
-        <a target="_none" href={`mailto:${data.contentfulAbout.email}/`}>
-          {data.contentfulAbout.email}
-        </a>
-
-      </SocialLink>
-
-      <SocialLink>
-        <a target="_none" href={`https://www.instagram.com/${data.contentfulAbout.instagram}/`}>
-          @{data.contentfulAbout.instagram}
-        </a>
-      </SocialLink>
-    </LinkContainer> */}
-  </div>
+const AboutPage = () => (
+  <StaticQuery
+    query={graphql`
+    query AboutQuery {
+      allContentfulAboutPage {
+        edges {
+          node {
+            aboutText {
+              aboutText
+            }
+            aboutImage {
+              id
+              fluid(maxWidth: 450) {
+                ...GatsbyContentfulFluid_tracedSVG
+              }
+            }
+          }
+        }
+      }
+    }
+    `}
+    render={data => (
+      <div>
+        { data.allContentfulAboutPage.edges.map(({ node }) =>
+        <AboutLayout>
+          <ImgCursor fluid={node.aboutImage.fluid} 
+            backgroundColor={"#eaeaea"}
+            fadeIn={true}
+            active={true}/>
+          <AboutText>{node.aboutText.aboutText}</AboutText>
+        </AboutLayout>
+        )}
+    </div>
+    )}/>
 )
 
 export default AboutPage
-
-// export const query = graphql`
-//   query AboutQuery {
-//     contentfulAbout(title: { eq: "About"} ) {
-//       phone
-//       email
-//       instagram
-
-//       aboutParagraph {
-//         aboutParagraph
-// 		  }
-//   	}
-//   }
-// `

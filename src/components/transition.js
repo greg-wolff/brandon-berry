@@ -12,12 +12,12 @@ const getTransitionStyles = {
     opacity: 0,
   },
   entered: {
-    transition: `all ${timeout}ms ease-in-out`,
+    transition: `opacity ${timeout}ms ease-in-out, filter ${timeout}ms ease-in-out`,
     filter: `grayscale(0)`,
     opacity: 1,
   },
   exiting: {
-    transition: `all ${timeout}ms ease-in-out`,
+    transition: `opacity ${timeout}ms ease-in-out, filter ${timeout}ms ease-in-out`,
     filter: `grayscale(1)`,
     opacity: 0,
   },

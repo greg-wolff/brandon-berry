@@ -43,6 +43,8 @@ const MixColumn = styled.div`
 const NextMix = styled(Link)`
   width: 100%;
   height: 100%;
+  padding: 0 60px;
+  box-sizing: border-box;
   display: grid;
   align-items: center;
   justify-items: center;
@@ -55,6 +57,58 @@ const NextMix = styled(Link)`
   }
   ${media.tablet`
     border-bottom: 1px solid #000;
+  `}
+`
+
+const PocketRecord = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  text-align: left;
+  align-items: center;
+  .gatsby-image-wrapper {
+    display: inline-block;
+    width: 24px !important;
+    margin-left: 8px;
+    vertical-align: middle;
+    border: 1px solid black;
+  }
+  ${media.tablet`
+    justify-items: center;
+    grid-auto-flow: row;
+    .gatsby-image-wrapper {
+      margin-top: 8px;
+      width: 32px !important;
+      border-radius: 17px;
+      margin-left: 0;
+      &:before {
+        content: "";
+        width: 14px;
+        height: 14px;
+        display: block;
+        position: absolute;
+        border-radius: 50%;
+        background: #ffffffb8;
+        box-sizing: border-box;
+        border: 1px solid #000;
+        z-index: 99;
+        top: calc(50% - 7px);
+        left: calc(50% - 7px);
+      }
+      &:after {
+        content: "";
+        width: 6px;
+        height: 6px;
+        display: block;
+        position: absolute;
+        border-radius: 50%;
+        background: white;
+        box-sizing: border-box;
+        border: 1px solid #000;
+        z-index: 99;
+        top: calc(50% - 3px);
+        left: calc(50% - 3px);
+      }
+    }
   `}
 `
 
@@ -198,17 +252,17 @@ const ProjectInfo = props => {
         </HoverPlay>
         {props.mixes.some((el, i) => ((el.title === props.title) && (i === props.mixes.length-1))) ? 
         <NextMix to={props.slug}>
-          new mix on blah
+          {props.nextMix}
         </NextMix> :
         <NextMix to={props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).fields.slug}>
-          Next Mix...<br/>{props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).title}
+          <div><div>Next Mix...</div><PocketRecord>{props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).title}<Img fluid={props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).thumbnailImage.fluid}/></PocketRecord></div>
         </NextMix>
         }
       </MixColumn>
       <DetailColumn>
         {isBrowser && <Arrow to='/'>←</Arrow>}
         <MixHeader>{props.date}<br/>{props.title}</MixHeader>
-        <MixLink href={props.mixFile} download={props.mixName}>Download Mix</MixLink>
+        <MixLink href={`https:${props.mixFile}`} download={props.mixName}>Download Mix</MixLink>
         <MixTracklist source={props.trackList.tracklist}/>
       </DetailColumn>
     </DetailLayout>
@@ -228,6 +282,7 @@ class MixPage extends React.Component {
         trackList={this.props.data.contentfulMix.tracklist || ''}
         playing={this.props.playing && (this.props.currentName === (this.props.data.contentfulMix.mixFile && (this.props.data.contentfulMix.mixFile.file.fileName || "")))}
         mixes={this.props.data.allContentfulMix.edges.map(el => el.node, {}).sort((a,b) => moment.utc(a.date).diff(moment.utc(b.date)))}
+        nextMix={this.props.data.allContentfulAboutPage.edges[0].node.nextMix.nextMix}
       />
     );
   }
@@ -243,6 +298,21 @@ export const query = graphql`
           date
           fields {
             slug
+          }
+          thumbnailImage {
+            id
+            fluid(maxWidth: 374, maxHeight: 374) {
+              ...GatsbyContentfulFluid_tracedSVG
+            }
+          }
+        }
+      }
+    }
+    allContentfulAboutPage {
+      edges {
+        node {
+          nextMix {
+            nextMix
           }
         }
       }

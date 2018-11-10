@@ -1,10 +1,11 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import styled, { injectGlobal } from 'styled-components';
+import styled, { injectGlobal } from 'styled-components'
 import ReactHowler from 'react-howler'
-import { Link, withPrefix, StaticQuery, graphql } from 'gatsby';
+import { Link, withPrefix, StaticQuery, graphql } from 'gatsby'
 import { connect } from 'react-redux'
 import { isMobile } from 'react-device-detect'
+import moment from 'moment'
 
 import Transition from "../components/transition"
 import NavPlayer from '../components/NavPlayer'
@@ -75,11 +76,22 @@ const Header = props => {
             fontName="FrakturB"
             style={{ zIndex: -1, opacity: isHomepage ? 1 : 0 }}
           />
-        </HeaderContainer>
-      }
+      </HeaderContainer> }
     </div>  
   );
 };
+
+const Player = props =>
+  props.data.allContentfulMix.edges.sort((a,b) => moment.utc(a.node.date).diff(moment.utc(b.node.date))).slice(0).reverse().map(({ node }, i, arr) =>
+    <div>
+      {console.log(node.mixFile.file.url,props.currentFile,props.playing)}
+    <ReactHowler
+      src={`http:${node.mixFile.file.url}`}
+      playing={(props.currentFile === node.mixFile.file.url) && props.playing ? true : false}
+      preload
+    />
+    </div>
+  )
 
 const Layout = props => (
   <StaticQuery
@@ -111,11 +123,7 @@ const Layout = props => (
             { name: "keywords", content: "sample, something" }
           ]}
         />
-        <ReactHowler
-          src={`http:${props.currentFile}`}
-          playing={props.playing}
-          preload
-        />
+        <Player data={data} currentFile={props.currentFile} playing={props.playing} />
         <Header location={props.location} currentName={props.currentName} playing={props.playing}/>
         <div style={{marginTop: `35px`}}>
           <Transition location={props.location}>

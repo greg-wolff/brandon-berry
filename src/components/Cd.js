@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 import styled from 'styled-components'
-import { isBrowser } from "react-device-detect";
 import media from '../utils/media'
+import Draggable from 'react-draggable'; 
+import { isMobile } from 'react-device-detect';
 
 import PlayButton from '../components/PlayButton'
 
@@ -19,20 +20,20 @@ const CdCase = styled(Link)`
   grid-gap: 1px;
   color: #000;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
   transform: translateY(0);
   >div {
     background: rgba(255, 255, 255, 0.5);
   }
-  img {
+  /* img {
     opacity: 0.5 !important;
-  }
+  } */
   &:hover {
     background: rgba(255, 255, 255, 1);
     transform: translateY(-2px);
-    img {
+    /* img {
       opacity: 1 !important;
-    }
+    } */
   }
   margin: ${props => props.pos};
   ${media.tablet`
@@ -84,24 +85,38 @@ const EmptyImg = props => (
 )
 export default class Cd extends Component {
   state = {
+    loaded: false,
     pos: null
   }
-  generateMargin = n => `80px calc(${n}% - ${(n > 40 ? 400 : -53)}px)`
+  constructor(props) {
+    super(props); 
+    this.dragging = false;
+    this._ref = React.createRef();
+  }
+  generateMargin = (x, mt=60, mb='') => `${mt}px calc(${x}% - ${(x > 40 ? 400 : -53)}px) ${mb}${mb && 'px'}`
   componentDidMount() {
-    console.log(this.props.index)
     switch(this.props.index) {
       case 0: 
-        this.setState({ pos: this.generateMargin(100)})
+        this.setState({ pos: this.generateMargin(95, 80, 60) })
         break;
       case 1: 
-        this.setState({ pos: this.generateMargin(6)})
+        this.setState({ pos: this.generateMargin(6) })
         break;
-      default: this.setState({ pos: this.generateMargin((this.props.index) ? Math.floor(Math.random() * 51) : (Math.floor(Math.random() * 51) + 51)) })
+      default: this.setState({ pos: this.generateMargin((this.props.index % 2 !== 0) ? Math.floor(Math.random() * 31) : (Math.floor(Math.random() * 31) + 71)) })
     }
+  }
+  onDrag = () => this.dragging = true;
+  onEndDrag = () => this.dragging ? setTimeout(() => this.dragging = false, 500) : this.dragging = false;
+  checkClickPropagation = e => {
+      if(this.dragging === true) {
+          e.preventDefault();
+          e.stopPropagation();
+      }
   }
   render() {
     return (
-      <CdCase to={this.props.mix} pos={this.state.pos}>
+      isMobile ? 
+      <CdCase to={this.props.mix} pos={this.state.pos} onClick={this.checkClickPropagation} innerRef={c => this._ref = c}>
         <Spine>
           <PlayButton 
             playing={false}
@@ -119,7 +134,30 @@ export default class Cd extends Component {
           fadeIn={true} /> : <EmptyImg colors={['#FFF7CD', '#FFB35A', '#5D5AFF']}/>}
           <Title>{this.props.title}</Title>
         </Insert>
-      </CdCase>
+      </CdCase> :
+      <Draggable onDrag={this.onDrag} onStop={this.onEndDrag}>
+      <div>
+        <CdCase to={this.props.mix} pos={this.state.pos} onClick={this.checkClickPropagation} innerRef={c => this._ref = c}>
+          <Spine>
+            <PlayButton 
+              playing={false}
+              currentFile={""}
+              currentName={""}
+              mixFile={this.props.mixFile}
+              mixName={this.props.mixName} />
+            <Date>
+              {moment(this.props.date).format('MM/DD/YYYY')}
+            </Date>
+          </Spine>
+          <Insert>
+            {this.props.img ? <Img fluid={this.props.img.fluid}
+            backgroundColor={"#eaeaea"}
+            fadeIn={true} /> : <EmptyImg colors={['#FFF7CD', '#FFB35A', '#5D5AFF']}/>}
+            <Title>{this.props.title}</Title>
+          </Insert>
+        </CdCase>
+      </div>
+      </Draggable>
     )
   }
 }
