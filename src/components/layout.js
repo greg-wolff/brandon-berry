@@ -83,13 +83,12 @@ const Header = props => {
 
 const Player = props =>
   props.data.allContentfulMix.edges.sort((a,b) => moment.utc(a.node.date).diff(moment.utc(b.node.date))).slice(0).reverse().map(({ node }, i, arr) =>
-    <div>
-      {console.log(node.mixFile.file.url,props.currentFile,props.playing)}
-    <ReactHowler
+    <div key={node.id}>
+    {/* <ReactHowler
       src={`http:${node.mixFile.file.url}`}
       playing={(props.currentFile === node.mixFile.file.url) && props.playing ? true : false}
       preload
-    />
+    /> */}
     </div>
   )
 

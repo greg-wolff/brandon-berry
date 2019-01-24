@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { StaticQuery, graphql } from 'gatsby'
 import Cd from '../components/Cd'
 import moment from 'moment'
+import PhotoBlock from '../components/PhotoBlock';
+import VideoBlock from '../components/VideoBlock';
 
 const IndexPage = props => {
   return (
@@ -36,6 +38,30 @@ const IndexPage = props => {
               }
             }
           }
+          allContentfulImage {
+            edges {
+              node {
+                images {
+                  id
+                  fluid(maxWidth: 374, maxHeight: 374) {
+                    ...GatsbyContentfulFluid_tracedSVG
+                  }
+                }
+              }
+            }
+          }
+          allContentfulVideo {
+            edges {
+              node {
+                video {
+                  id
+                  file {
+                    url
+                  }
+                }
+              }
+            }
+          }
         }
       `
       
@@ -53,6 +79,18 @@ const IndexPage = props => {
               index={i}
             />
           ) }
+          { data.allContentfulImage.edges.map((v, i) => [v, data.allContentfulVideo.edges[i]]).flat().filter(u => u !== undefined).map(({node}, i) => {   
+          if (node.video)
+            return <VideoBlock key={i}
+              video={node.video}
+              index={i} />
+          if (node.images)
+            return <PhotoBlock key={i}
+            img={node.images}
+            index={i}
+            />
+          })
+          }
         </main>
       )}
     />

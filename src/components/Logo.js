@@ -23,7 +23,6 @@ class Logo extends Component {
   }
   onMouseMove = (e) => {
     e.preventDefault();
-    // console.log((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1, 0)
     // this.directionalLight.position.set(1, -(e.clientY / window.innerHeight) * 2 + 1, 0)  
     if (!this.props.static) {
       this.group.rotation.y = ((e.clientX / global.innerWidth) - .5)/4

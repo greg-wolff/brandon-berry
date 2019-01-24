@@ -17,7 +17,6 @@ const CdCase = styled(Link)`
   border: 1px solid #000;
   display: grid;
   grid-template-columns: .12fr .88fr;
-  grid-gap: 1px;
   color: #000;
   text-decoration: none;
   transition: opacity 0.2s ease, transform 0.2s ease;
@@ -37,6 +36,9 @@ const CdCase = styled(Link)`
   }
   margin: ${props => props.pos};
   ${media.tablet`
+    >div {
+      background: #fff;
+    }
     margin: 30px auto;
     &:first-of-type {
       margin-top: 60px;
@@ -105,7 +107,7 @@ export default class Cd extends Component {
       default: this.setState({ pos: this.generateMargin((this.props.index % 2 !== 0) ? Math.floor(Math.random() * 31) : (Math.floor(Math.random() * 31) + 71)) })
     }
   }
-  onDrag = () => this.dragging = true;
+  onDrag = () => setTimeout(() => this.dragging = true, 100);
   onEndDrag = () => this.dragging ? setTimeout(() => this.dragging = false, 500) : this.dragging = false;
   checkClickPropagation = e => {
       if(this.dragging === true) {

@@ -31,7 +31,7 @@ const MixColumn = styled.div`
   justify-items: center;
   position: sticky;
   top: 0;
-  height: calc(100vh - 35px);
+  height: calc(100vh - 36px);
   ${media.tablet`
     position: initial;
     top: initial;
