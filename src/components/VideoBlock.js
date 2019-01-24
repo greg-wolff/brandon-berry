@@ -47,7 +47,7 @@ export default class VideoBlock extends Component {
   render() {
     const draggableFix = this.props.index % 2 == 0 ? {zIndex: '99', position: 'absolute', top: (this.props.index * 400), left: 0} : {zIndex: '99', position: 'absolute', top: (this.props.index * 400), right: 0}
     return (
-      <Draggable>
+      !isMobile && <Draggable>
         <div style={draggableFix}>
           <VideoContainer pos={this.state.pos} muted autoPlay>
             <source src={this.props.video.file.url} type="video/mp4"/>

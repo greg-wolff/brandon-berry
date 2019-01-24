@@ -46,7 +46,7 @@ export default class PhotoBlock extends Component {
   render() {
     const draggableFix = this.props.index % 2 == 0 ? {zIndex: '99', position: 'absolute', top: (this.props.index * 400), left: 0} : {zIndex: '99', position: 'absolute', top: (this.props.index * 400), right: 0}
     return (
-      <Draggable>
+      !isMobile && <Draggable>
         <div style={draggableFix}>
           <PhotoContainer pos={this.state.pos}>
             {this.props.img && <Img fluid={this.props.img[0].fluid}
