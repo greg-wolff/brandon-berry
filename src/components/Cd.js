@@ -118,7 +118,7 @@ export default class Cd extends Component {
   render() {
     return (
       isMobile ? 
-      <CdCase to={this.props.mix} pos={this.state.pos} onClick={this.checkClickPropagation} innerRef={c => this._ref = c}>
+      <CdCase to={this.props.mix} pos={this.state.pos}>
         <Spine>
           <PlayButton 
             playing={false}
