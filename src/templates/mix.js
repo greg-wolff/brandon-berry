@@ -147,8 +147,8 @@ const MixTracklist = styled(ReactMarkdown)`
     text-align: left;
   }
   ${media.tablet`
-    overflow-x: scroll;
-    overflow-y: auto;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
     width: calc(100% + 32px);
     margin-left: -32px;
     border: 1px solid black;
