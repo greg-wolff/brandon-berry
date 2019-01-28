@@ -89,6 +89,7 @@ const IndexPage = props => {
             img={node.images}
             index={i}
             />
+          else return
           })
           }
         </main>

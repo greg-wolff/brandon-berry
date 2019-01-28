@@ -31,11 +31,11 @@ export default class PhotoBlock extends Component {
     loaded: false,
     pos: null
   }
-  generateMargin = (x, mt=60, mb='') => `${mt}px calc(${x}% - ${(x > 40 ? 400 : -53)}px) ${mb}${mb && 'px'}`
+  generateMargin = (x, mt=60, mb='', x2) => `${mt}px calc(${x2 || x}% - ${(x > 50 ? 400 : -53)}px) ${mb}${mb && 'px'}`
   componentDidMount() {
     switch(this.props.index) {
       case 0: 
-        this.setState({ pos: this.generateMargin(20) })
+        this.setState({ pos: this.generateMargin(0, 60, '', 100) })
         break;
       case 1: 
         this.setState({ pos: this.generateMargin(95, 80, 60) })

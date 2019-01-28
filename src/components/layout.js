@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import styled, { injectGlobal } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import ReactHowler from 'react-howler'
 import { Link, withPrefix, StaticQuery, graphql } from 'gatsby'
 import { connect } from 'react-redux'
@@ -17,7 +17,7 @@ import "../assets/css/styles.css";
 
 import Logo from '../components/Logo';
 
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
   html, body {
     height: 100%;
     overflow: hidden;
@@ -60,6 +60,7 @@ const Header = props => {
 
   return (
     <div>
+      <GlobalStyle />
       <Nav>
         { (!isHomepage && isMobile) ? 
         <NavLink to="/" style={{ fontFamily: `Times New Roman`, fontSize: `19pt`, lineHeight: `0.65` }}>←</NavLink> :

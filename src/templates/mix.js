@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ReactMarkdown from 'react-markdown'
+import { graphql } from 'gatsby'
 import Link from 'gatsby-link'
 import Img from 'gatsby-image'
 import styled from 'styled-components'
