@@ -303,7 +303,7 @@ export const query = graphql`
           thumbnailImage {
             id
             fluid(maxWidth: 374, maxHeight: 374) {
-              ...GatsbyContentfulFluid_tracedSVG
+              ...GatsbyContentfulFluid
             }
           }
         }
@@ -332,7 +332,7 @@ export const query = graphql`
       thumbnailImage {
         id
         fluid(maxWidth: 374, maxHeight: 374) {
-          ...GatsbyContentfulFluid_tracedSVG
+          ...GatsbyContentfulFluid
         }
       }
       tracklist {

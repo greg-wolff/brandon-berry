@@ -39,7 +39,7 @@ const AboutPage = () => (
             aboutImage {
               id
               fluid(maxWidth: 450) {
-                ...GatsbyContentfulFluid_tracedSVG
+                ...GatsbyContentfulFluid
               }
             }
           }

@@ -37,7 +37,7 @@ const IndexPage = props => {
                 thumbnailImage {
                   id
                   fluid(maxWidth: 374, maxHeight: 374) {
-                    ...GatsbyContentfulFluid_tracedSVG
+                    ...GatsbyContentfulFluid
                   }
                 }
                 fields {
@@ -52,7 +52,7 @@ const IndexPage = props => {
                 images {
                   id
                   fluid(maxWidth: 374, maxHeight: 374) {
-                    ...GatsbyContentfulFluid_tracedSVG
+                    ...GatsbyContentfulFluid
                   }
                 }
               }
