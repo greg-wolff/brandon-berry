@@ -29,6 +29,7 @@ const PlayCursor = styled.div`
       right: calc(50% - 40px);
       transform-origin: bottom right;
       transform: scale(0.8);
+      z-index: 100;
     }
   `}
 `
