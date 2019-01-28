@@ -147,7 +147,8 @@ const MixTracklist = styled(ReactMarkdown)`
     text-align: left;
   }
   ${media.tablet`
-    overflow: scroll;
+    overflow-x: scroll;
+    overflow-y: auto;
     width: calc(100% + 32px);
     margin-left: -32px;
     border: 1px solid black;
@@ -227,13 +228,13 @@ const RecordLabel = styled.span`
   `}
 `
 
-const Arrow = styled(Link)`
+const Arrow = styled.span`
   display: block;
   margin-bottom: 32px;
   color: #000;
   font-family: "Times New Roman";
   font-size: 24pt;
-  text-decoration: none;
+  user-select: none;
   cursor: pointer;
 `
 
@@ -261,7 +262,7 @@ const ProjectInfo = props => {
         }
       </MixColumn>
       <DetailColumn>
-        {isBrowser && <Arrow to='/'>←</Arrow>}
+        {isBrowser && <Arrow onClick={() => window.history.back()}>←</Arrow>}
         <MixHeader>{props.date}<br/>{props.title}</MixHeader>
         <MixLink href={`https:${props.mixFile}`} download={props.mixName}>Download Mix</MixLink>
         <MixTracklist source={props.trackList.tracklist}/>

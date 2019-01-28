@@ -17,13 +17,6 @@ import "../assets/css/styles.css";
 
 import Logo from '../components/Logo';
 
-const GlobalStyle = createGlobalStyle`
-  html, body {
-    height: 100%;
-    overflow: hidden;
-  }
-`
-
 const HeaderContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -60,7 +53,6 @@ const Header = props => {
 
   return (
     <div>
-      <GlobalStyle />
       <Nav>
         { (!isHomepage && isMobile) ? 
         <NavLink to="/" style={{ fontFamily: `Times New Roman`, fontSize: `19pt`, lineHeight: `0.65` }}>←</NavLink> :
