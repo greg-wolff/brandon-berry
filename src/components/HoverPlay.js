@@ -30,6 +30,7 @@ const PlayCursor = styled.div`
       transform-origin: bottom right;
       transform: scale(0.8);
       z-index: 100;
+      -webkit-transform: translate3d(0,0,0)
     }
   `}
 `
