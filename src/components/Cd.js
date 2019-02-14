@@ -96,19 +96,19 @@ export default class Cd extends Component {
     this._ref = React.createRef();
   }
   generateMargin = (x, mt=60, mb='') => `${mt}px calc(${x}% - ${(x > 40 ? 400 : -53)}px) ${mb}${mb && 'px'}`
-  componentDidMount() {
+  componentWillMount() {
     switch(this.props.index) {
       case 0: 
-        this.setState({ pos: this.generateMargin(95, 80, 60) })
+        this.setState({ pos: this.generateMargin(95, 80, 60), loaded: true })
         break;
       case 1: 
-        this.setState({ pos: this.generateMargin(6) })
+        this.setState({ pos: this.generateMargin(6), loaded: true })
         break;
-      default: this.setState({ pos: this.generateMargin((this.props.index % 2 !== 0) ? Math.floor(Math.random() * 31) : (Math.floor(Math.random() * 31) + 71)) })
+      default: this.setState({ pos: this.generateMargin((this.props.index % 2 !== 0) ? Math.floor(Math.random() * 31) : (Math.floor(Math.random() * 31) + 71)), loaded: true })
     }
   }
   onDrag = () => setTimeout(() => this.dragging = true, 100);
-  onEndDrag = () => this.dragging ? setTimeout(() => this.dragging = false, 500) : this.dragging = false;
+  onEndDrag = () => this.dragging ? setTimeout(() => this.dragging = false, 400) : this.dragging = false;
   checkClickPropagation = e => {
       if(this.dragging === true) {
           e.preventDefault();
@@ -117,7 +117,7 @@ export default class Cd extends Component {
   }
   render() {
     return (
-      isMobile ? 
+      (this.props.loaded && isMobile ? 
       <CdCase to={this.props.mix} pos={this.state.pos}>
         <Spine>
           <PlayButton 
@@ -159,7 +159,7 @@ export default class Cd extends Component {
           </Insert>
         </CdCase>
       </div>
-      </Draggable>
+      </Draggable>)
     )
   }
 }
