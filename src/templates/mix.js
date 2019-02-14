@@ -58,6 +58,7 @@ const NextMix = styled(Link)`
   }
   ${media.tablet`
     border-bottom: 1px solid #000;
+    padding: 15px 85px;
   `}
 `
 
@@ -76,6 +77,7 @@ const PocketRecord = styled.div`
   ${media.tablet`
     justify-items: center;
     grid-auto-flow: row;
+    text-align: center;
     .gatsby-image-wrapper {
       margin-top: 8px;
       width: 32px !important;
@@ -118,6 +120,7 @@ const DetailColumn = styled.div`
   ${media.tablet`
     width: 100vw;
     box-sizing: border-box;
+    padding: 42px;
   `}
 `
 
@@ -160,9 +163,9 @@ const MixTracklist = styled(ReactMarkdown)`
     margin-left: -32px;
     border: 1px solid black;
     border-radius: 3px;
-    padding: 25px 0 25px 30px;
+    padding: 25px 15px;
     table {
-      width: 170%
+      width: 100%
     }
   `}
 `
