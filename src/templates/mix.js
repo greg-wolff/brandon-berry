@@ -9,7 +9,6 @@ import HoverPlay from '../components/HoverPlay'
 import moment from 'moment'
 import media from '../utils/media'
 import { isBrowser } from 'react-device-detect'
-import { Slider } from 'react-player-controls'
 
 const DetailLayout = styled.div`
   display: grid;
@@ -245,41 +244,6 @@ const Arrow = styled.span`
   user-select: none;
   cursor: pointer;
 `
-const SliderBar = ({ value, style }) => (
-  <div
-    style={Object.assign({}, {
-      position: 'absolute',
-      background: '#333',
-    }, {
-      top: 0,
-      bottom: 0,
-      left: 0,
-      width: `${value * 100}%`,
-    }, style)}
-  />
-)
-
-const SliderHandle = ({ value, style }) => (
-  <div><div
-    style={Object.assign({}, {
-      position: 'absolute',
-      width: 16,
-      height: 16,
-      background: '#ff00ff',
-      borderRadius: '100%',
-      transform: 'scale(1)',
-      transition: 'transform 0.2s',
-      '&:hover': {
-        transform: 'scale(1.3)',
-      }
-    }, {
-      top: 0,
-      left: `${value * 100}%`,
-      marginTop: -8,
-      marginLeft: -8,
-    }, style)}
-  /></div>
-)
 
 const ProjectInfo = props => {
   return (
@@ -307,32 +271,6 @@ const ProjectInfo = props => {
       <DetailColumn>
         {isBrowser && <Arrow onClick={() => window.history.back()}>←</Arrow>}
         <MixHeader>{props.date}<br/>{props.title}</MixHeader>
-        <Slider
-          onChangeStart={() => props.dispatch({ type: `PAUSE` })}
-          onChange={(value) => {props.dispatch({ type: `SEEK`, status: value})}}
-          onChangeEnd={() => props.dispatch({ type: `RESUME` })} 
-          style={{
-            width: 400,
-            height: 2,
-            margin: `20px 0`,
-            borderRadius: 4,
-            background: '#f1f1f1',
-            transition: 'width 0.1s'
-          }}>
-            <SliderBar
-              // value={props.status}
-              style={{ background: 'black' }}
-            />
-            <SliderBar
-              // value={this.state.lastIntent}
-              style={{ background: 'rgba(0, 0, 0, 0.05)' }}
-            />
-            <SliderHandle
-              value={props.status}
-              style={{ border: `1px solid black`,
-                background: `white` }}
-            />
-        </Slider>
         <MixLink href={`https:${props.mixFile}`} download={props.mixName}>Download Mix</MixLink>
         <MixTracklist source={props.trackList.tracklist}/>
       </DetailColumn>
@@ -352,7 +290,6 @@ class MixPage extends React.Component {
         mixFile={this.props.data.contentfulMix.mixFile.file.url || ''}
         trackList={this.props.data.contentfulMix.tracklist || ''}
         playing={this.props.playing && (this.props.currentName === (this.props.data.contentfulMix.mixFile && (this.props.data.contentfulMix.mixFile.file.fileName || "")))}
-        status={this.props.status}
         mixes={this.props.data.allContentfulMix.edges.map(el => el.node, {}).sort((a,b) => moment.utc(a.date).diff(moment.utc(b.date)))}
         nextMix={this.props.data.allContentfulAboutPage.edges[0].node.nextMix.nextMix}
         dispatch={this.props.dispatch}
@@ -418,8 +355,8 @@ export const query = graphql`
   }
 `
 
-const mapStateToProps = ({ playing, currentFile, currentName, status }) => {
-  return { playing, currentFile, currentName, status }
+const mapStateToProps = ({ playing, currentFile, currentName }) => {
+  return { playing, currentFile, currentName }
 }
 
 export default connect(

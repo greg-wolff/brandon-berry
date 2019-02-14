@@ -8,7 +8,7 @@ import { isMobile } from 'react-device-detect'
 // import {ColorEdgesMaterial} from 'postprocessing/src/materials/ColorEdgesMaterial.js'
 
 const THREE = require("three");
-const WIDTH = global.innerWidth + 150,
+const WIDTH = global.innerWidth + 280,
       HEIGHT = (isMobile ? 130 : global.innerHeight);
 
 class Logo extends Component {

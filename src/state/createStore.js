@@ -12,14 +12,6 @@ const reducer = (state, action) => {
       return Object.assign({}, state, {
         playing: false,
       })
-    case `RESUME`:
-      return Object.assign({}, state, {
-        playing: true,
-      })
-    case `SEEK`:
-      return Object.assign({}, state, {
-        status: action.status
-      })
     default:
       return state
   }
@@ -29,7 +21,6 @@ const initialState = {
   playing: false,   
   currentFile: "",
   currentName: "",
-  status: 0,
 }
 
 const createStore = () => reduxCreateStore(reducer, initialState)
