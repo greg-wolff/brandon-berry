@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
+import media from '../utils/media'
 
 const AboutLayout = styled.div`
   display: grid;
@@ -11,8 +12,15 @@ const AboutLayout = styled.div`
   grid-template-columns: .5fr .5fr;
   align-items: center;
   margin: 40px auto;
+  ${media.tablet`
+    grid-template-columns: 1fr;
+    overflow: hidden;
+  `}
   div {
-    padding: 0 90px
+    padding: 0 90px;
+    ${media.tablet`
+      padding: 0;
+    `}
   }
 `
 
