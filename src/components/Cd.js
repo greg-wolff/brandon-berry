@@ -64,10 +64,10 @@ const Insert = styled.div`
 `
 
 const Title = styled.div`
-  font-size: 23px;
+  font-size: 18px;
   align-self: start;
   text-align: center;
-  padding: 0 5px;
+  padding: 0 21px;
 `
 
 const Date = styled.div`
