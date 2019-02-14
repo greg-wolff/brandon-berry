@@ -12,10 +12,6 @@ const reducer = (state, action) => {
       return Object.assign({}, state, {
         playing: false,
       })
-    case `INIT`:
-      return Object.assign({}, state, {
-        mixes: action.mixes
-      })
     default:
       return state
   }
@@ -25,7 +21,6 @@ const initialState = {
   playing: false,   
   currentFile: "",
   currentName: "",
-  mixes: null
 }
 
 const createStore = () => reduxCreateStore(reducer, initialState)

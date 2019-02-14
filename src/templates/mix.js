@@ -146,6 +146,13 @@ const MixTracklist = styled(ReactMarkdown)`
   thead {
     text-align: left;
   }
+  tr {
+    transition: background-color 0.1s ease;
+    cursor: crosshair;
+    &:hover {
+      background-color: #d2eaff;
+    }
+  }
   ${media.tablet`
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
@@ -285,6 +292,7 @@ class MixPage extends React.Component {
         playing={this.props.playing && (this.props.currentName === (this.props.data.contentfulMix.mixFile && (this.props.data.contentfulMix.mixFile.file.fileName || "")))}
         mixes={this.props.data.allContentfulMix.edges.map(el => el.node, {}).sort((a,b) => moment.utc(a.date).diff(moment.utc(b.date)))}
         nextMix={this.props.data.allContentfulAboutPage.edges[0].node.nextMix.nextMix}
+        dispatch={this.props.dispatch}
       />
     );
   }

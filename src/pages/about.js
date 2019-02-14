@@ -7,8 +7,13 @@ import Img from 'gatsby-image'
 const AboutLayout = styled.div`
   display: grid;
   width: 100%;
+  height: 100vh;
   grid-template-columns: .5fr .5fr;
+  align-items: center;
   margin: 40px auto;
+  div {
+    padding: 0 90px
+  }
 `
 
 const AboutText = styled(ReactMarkdown)`
@@ -52,6 +57,7 @@ const AboutPage = () => (
         { data.allContentfulAboutPage.edges.map(({ node }) =>
         <AboutLayout>
           <AboutText>{node.aboutText.aboutText}</AboutText>
+          <Img fluid={node.aboutImage.fluid} />
         </AboutLayout>
         )}
     </div>
