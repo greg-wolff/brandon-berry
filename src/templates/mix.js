@@ -17,6 +17,7 @@ const DetailLayout = styled.div`
   height: calc(100vh - 35px);
   width: 100vw;
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   ${media.tablet`
     grid-template-columns: 1fr;
     grid-template-rows: .8fr .2fr;
