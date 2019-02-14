@@ -14,8 +14,9 @@ Object.defineProperty(Array.prototype, 'flat', {
   }
 });
 
-const IndexPage = props => {
-  return (
+class IndexPage extends React.Component {
+  render() {
+    return (
     <StaticQuery
       query={
         graphql`
@@ -76,17 +77,21 @@ const IndexPage = props => {
       }
       render={data => (
         <main className="animated fadeInUp">
-          { data.allContentfulMix.edges.sort((a,b) => moment.utc(a.node.date).diff(moment.utc(b.node.date))).slice(0).reverse().map(({ node }, i, arr) =>
-            <Cd key={node.id}
-              mix={node.fields.slug}
-              date={node.date}
-              img={node.thumbnailImage}
-              title={`${arr.length-i}. ${node.title}`}
-              mixFile={node.mixFile && (node.mixFile.file.url || "")}
-              mixName={node.mixFile && (node.mixFile.file.fileName || "")}
-              index={i}
-            />
-          ) }
+          { data.allContentfulMix.edges.sort((a,b) => moment.utc(a.node.date).diff(moment.utc(b.node.date))).slice(0).reverse().map(({ node }, i, arr) => {
+              return (
+                <Cd key={node.id}
+                  mix={node.fields.slug}
+                  date={node.date}
+                  img={node.thumbnailImage}
+                  title={`${arr.length-i}. ${node.title}`}
+                  mixFile={node.mixFile && (node.mixFile.file.url || "")}
+                  mixName={node.mixFile && (node.mixFile.file.fileName || "")}
+                  index={i}
+                />
+              )
+            }
+          )
+          }
           { data.allContentfulImage.edges.map((v, i) => [v, data.allContentfulVideo.edges[i]]).flat().filter(u => u !== undefined).map(({node}, i) => {   
           if (node.video)
             return <VideoBlock key={i}
@@ -105,5 +110,12 @@ const IndexPage = props => {
     />
   )
 }
+}
 
-export default connect()(IndexPage)
+const mapStateToProps = ({ currentFile, currentName }) => {
+  return { currentFile, currentName }
+}
+
+export default connect(
+  mapStateToProps
+)(IndexPage)

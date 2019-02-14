@@ -1,12 +1,11 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import styled, { createGlobalStyle } from 'styled-components'
-import ReactHowler from 'react-howler'
 import { Link, withPrefix, StaticQuery, graphql } from 'gatsby'
 import { connect } from 'react-redux'
 import { isMobile } from 'react-device-detect'
-import moment from 'moment'
 
+import Player from "./Player"
 import Transition from "../components/transition"
 import NavPlayer from '../components/NavPlayer'
 
@@ -74,17 +73,6 @@ const Header = props => {
   );
 };
 
-const Player = props =>
-  props.data.allContentfulMix.edges.sort((a,b) => moment.utc(a.node.date).diff(moment.utc(b.node.date))).slice(0).reverse().map(({ node }, i, arr) =>
-    <div key={node.id}>
-    {/* <ReactHowler
-      src={`http:${node.mixFile.file.url}`}
-      playing={(props.currentFile === node.mixFile.file.url) && props.playing ? true : false}
-      preload
-    /> */}
-    </div>
-  )
-
 const Layout = props => (
   <StaticQuery
     query={graphql`
@@ -115,7 +103,7 @@ const Layout = props => (
             { name: "keywords", content: "sample, something" }
           ]}
         />
-        <Player data={data} currentFile={props.currentFile} playing={props.playing} />
+        <Player />
         <Header location={props.location} currentName={props.currentName} playing={props.playing}/>
         <div style={{marginTop: `35px`}}>
           <Transition location={props.location}>
