@@ -98,7 +98,7 @@ class IndexPage extends React.Component {
             return <VideoBlock key={i}
               video={node.video}
               index={i} />
-          if (node.images && !node.images[0].title.includes("img"))
+          if (node.images && !node.images[0].title.includes("aboutPage"))
             return <PhotoBlock key={i}
             img={node.images}
             index={i}
