@@ -17,7 +17,7 @@ const AboutLayout = styled.div`
     grid-template-columns: 1fr;
     overflow: hidden;
   `}
-  div {
+  >div:first-child {
     padding: 0 90px;
     ${media.tablet`
       padding: 0;
@@ -39,7 +39,7 @@ const AboutText = styled(ReactMarkdown)`
    }).join("");
   }
 */
-
+let i = 0
 const AboutPage = () => (
   <StaticQuery
     query={graphql`
@@ -49,6 +49,7 @@ const AboutPage = () => (
           node {
             images {
               id
+              title
               fluid(maxWidth: 374, maxHeight: 374) {
                 ...GatsbyContentfulFluid
               }
@@ -63,12 +64,8 @@ const AboutPage = () => (
             aboutText {
               aboutText
             }
-            aboutImages{
-              title
-            }
             aboutImage {
               id
-              title
               fluid(maxWidth: 450) {
                 ...GatsbyContentfulFluid
               }
@@ -80,24 +77,23 @@ const AboutPage = () => (
     `}
     render={data => (
       <div>
-        { data.allContentfulAboutPage.edges.map(({ node }) =>
-        <AboutLayout>
+        { data.allContentfulAboutPage.edges.map(({ node }, i) =>
+        <AboutLayout key={i}>
           <AboutText>{node.aboutText.aboutText}</AboutText>
-          <Img fluid={node.aboutImage.fluid} />
+          {/* <Img fluid={node.aboutImage.fluid} /> */}
+          { data.allContentfulImage.edges.map(({node}) => {   
+            return (node.images && node.images[0].title.includes("aboutPage")) &&
+            (
+                <PhotoBlock key={i}
+                  img={node.images}
+                  index={`${i++}random_right`}
+                />
+              )
+            })
+          }
         </AboutLayout>
         )}
-        {/* { data.allContentfulImage.edges.map(({node}, i) => {   
-          console.log(node.images)
-          if (node.images)
-            return (
-              <PhotoBlock key={i}
-                img={node.images}
-                index={i}
-              />
-            )
-          else return
-          })
-        } */}
+        
     </div>
     )}/>
 )

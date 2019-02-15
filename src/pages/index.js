@@ -84,9 +84,9 @@ class IndexPage extends React.Component {
                   mix={node.fields.slug}
                   date={node.date}
                   img={node.thumbnailImage}
-                  title={`${arr.length-i}. ${node.title}`}
+                  title={node.title}
                   mixFile={node.mixFile && (node.mixFile.file.url || "")}
-                  mixName={node.mixFile && (node.mixFile.file.fileName || "")}
+                  mixName={node.mixFile && (node.title || "")}
                   index={i}
                 />
               )
@@ -98,8 +98,7 @@ class IndexPage extends React.Component {
             return <VideoBlock key={i}
               video={node.video}
               index={i} />
-            console.log(node.images)
-          if (node.images && !node.images[0].title.includes("img01"))
+          if (node.images && !node.images[0].title.includes("img"))
             return <PhotoBlock key={i}
             img={node.images}
             index={i}
