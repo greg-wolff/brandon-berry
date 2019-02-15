@@ -2,7 +2,8 @@ import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
-import Img from 'gatsby-image'
+import PhotoBlock from '../components/PhotoBlock';
+import Img from 'gatsby-image'  
 import media from '../utils/media'
 
 const AboutLayout = styled.div`
@@ -43,14 +44,31 @@ const AboutPage = () => (
   <StaticQuery
     query={graphql`
     query AboutQuery {
+      allContentfulImage {
+        edges {
+          node {
+            images {
+              id
+              fluid(maxWidth: 374, maxHeight: 374) {
+                ...GatsbyContentfulFluid
+              }
+            }
+          }
+        }
+      }
+
       allContentfulAboutPage {
         edges {
           node {
             aboutText {
               aboutText
             }
+            aboutImages{
+              title
+            }
             aboutImage {
               id
+              title
               fluid(maxWidth: 450) {
                 ...GatsbyContentfulFluid
               }
@@ -68,6 +86,18 @@ const AboutPage = () => (
           <Img fluid={node.aboutImage.fluid} />
         </AboutLayout>
         )}
+        {/* { data.allContentfulImage.edges.map(({node}, i) => {   
+          console.log(node.images)
+          if (node.images)
+            return (
+              <PhotoBlock key={i}
+                img={node.images}
+                index={i}
+              />
+            )
+          else return
+          })
+        } */}
     </div>
     )}/>
 )

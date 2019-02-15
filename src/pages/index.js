@@ -52,6 +52,7 @@ class IndexPage extends React.Component {
               node {
                 images {
                   id
+                  title
                   fluid(maxWidth: 374, maxHeight: 374) {
                     ...GatsbyContentfulFluid
                   }
@@ -97,7 +98,8 @@ class IndexPage extends React.Component {
             return <VideoBlock key={i}
               video={node.video}
               index={i} />
-          if (node.images)
+            console.log(node.images)
+          if (node.images && !node.images[0].title.includes("img01"))
             return <PhotoBlock key={i}
             img={node.images}
             index={i}
