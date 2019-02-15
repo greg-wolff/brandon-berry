@@ -13,7 +13,7 @@ Object.defineProperty(Array.prototype, 'flat', {
     }, []);
   }
 });
-
+let j = 0
 class IndexPage extends React.Component {
   render() {
     return (
@@ -95,13 +95,13 @@ class IndexPage extends React.Component {
           }
           { data.allContentfulImage.edges.map((v, i) => [v, data.allContentfulVideo.edges[i]]).flat().filter(u => u !== undefined).map(({node}, i) => {   
           if (node.video)
-            return <VideoBlock key={i}
+            return <VideoBlock key={j}
               video={node.video}
-              index={i} />
+              index={j++} />
           if (node.images && !node.images[0].title.includes("aboutPage"))
-            return <PhotoBlock key={i}
+            return <PhotoBlock key={j}
             img={node.images}
-            index={i}
+            index={j++}
             />
           else return
           })
