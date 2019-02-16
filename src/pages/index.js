@@ -93,6 +93,7 @@ class IndexPage extends React.Component {
             }
           )
           }
+          {j = 0}
           { data.allContentfulImage.edges.map((v, i) => [v, data.allContentfulVideo.edges[i]]).flat().filter(u => u !== undefined).map(({node}, i) => {   
           if (node.video)
             return <VideoBlock key={j}
