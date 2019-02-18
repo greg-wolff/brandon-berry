@@ -3,6 +3,8 @@ import ReactMarkdown from 'react-markdown'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
 import PhotoBlock from '../components/PhotoBlock'; 
+import { isMobile } from 'react-device-detect'
+import Img from 'gatsby-image'
 import media from '../utils/media'
 
 const AboutLayout = styled.div`
@@ -15,6 +17,7 @@ const AboutLayout = styled.div`
   ${media.tablet`
     grid-template-columns: 1fr;
     overflow: hidden;
+    height: initial;
   `}
   >div:first-child {
     padding: 0 90px;
@@ -27,6 +30,17 @@ const AboutLayout = styled.div`
 const AboutText = styled(ReactMarkdown)`
   color: black;
   margin: 0 17px;
+`
+
+const AboutCollage = styled.div`
+  display: grid;
+  display: grid;
+  grid-template-rows: .5fr .5fr;
+  grid-template-columns: .5fr .5fr;
+  padding: 0 3vw;
+  grid-gap: 5vw 0;
+  align-items: center;
+  justify-items: center;
 `
 
 /* 
@@ -77,20 +91,26 @@ const AboutPage = () => (
     render={data => (
       <div>
         { data.allContentfulAboutPage.edges.map(({ node }) =>
-        <AboutLayout key={i}>
-          <AboutText>{node.aboutText.aboutText}</AboutText>
-          {/* <Img fluid={node.aboutImage.fluid} /> */}
-          { data.allContentfulImage.edges.map(({node}) => {   
-            return (node.images && node.images[0].title.includes("aboutPage")) &&
-            (
-                <PhotoBlock key={i}
-                  img={node.images}
-                  index={`${i++}random_right`}
-                />
-              )
-            })
-          }
-        </AboutLayout>
+          isMobile ? 
+            <AboutLayout key={i}>
+              <Img fluid={node.aboutImage.fluid} />
+              <AboutText>{node.aboutText.aboutText}</AboutText>
+            </AboutLayout> : 
+            <AboutLayout key={i}>
+              <AboutText>{node.aboutText.aboutText}</AboutText>
+              <AboutCollage>
+                { data.allContentfulImage.edges.map(({node}) => {   
+                  return (node.images && node.images[0].title.includes("aboutPage")) &&
+                  (
+                      <PhotoBlock key={i}
+                        img={node.images}
+                        index={`${i++}random_right`}
+                      />
+                    )
+                  })
+                }
+              </AboutCollage>
+            </AboutLayout>
         )}
         
     </div>

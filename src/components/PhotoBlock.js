@@ -3,7 +3,7 @@ import Img from 'gatsby-image'
 import styled from 'styled-components'
 import media from '../utils/media'
 import Draggable from 'react-draggable'; 
-import { isMobile, ConsoleView } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 
 const PhotoContainer = styled.div`  
   width: 225px;
@@ -31,23 +31,23 @@ export default class PhotoBlock extends Component {
     loaded: false,
     pos: null
   }
-  generateMargin = (x, mt=60, mb='', x2) => `${mt}px calc(${x2 || x}% - ${(x > 50 ? 400 : -53)}px) ${mb}${mb && 'px'}`
+  generateMargin = (x, mt=60, mb='', x2) => `${mt}px calc(${x2 || x}% - ${(x > 50 ? 350 : -33)}px) ${mb}${mb && 'px'}`
   componentDidMount() {
     if (typeof this.props.index === "string")
-      this.setState({ pos: this.generateMargin(0, 60, '', -(Math.floor((Math.random()*390)+50))) })
+      this.setState({ pos: `0px` })
     else
       switch(this.props.index) {
         case 0: 
-          this.setState({ pos: this.generateMargin(0, 60, '', 100) })
+          this.setState({ pos: this.generateMargin(0, 15, '', 60) })
           break;
         case 1: 
-          this.setState({ pos: this.generateMargin(95, 80, 60) })
+          this.setState({ pos: this.generateMargin(75, 20) })
           break;
-        default: this.setState({ pos: this.generateMargin((this.props.index % 2 == 0) ? Math.floor(Math.random() * 31) : (Math.floor(Math.random() * 31) + 71), 60, 20) })
+        default: this.setState({ pos: this.generateMargin((this.props.index % 2 === 0) ? Math.floor(Math.random() * 50) : (Math.floor(Math.random() * 31) + 71), 60, 20) })
       }
   }
   render() {
-    const draggableFix = (typeof this.props.index !== "string") ? (this.props.index % 2 == 0 ? {zIndex: '99', position: 'absolute', top: (this.props.index * 400), left: 0} : {zIndex: '99', position: 'absolute', top: (this.props.index * 400), right: 0}) : {zIndex: '99', position: 'absolute', top: (Number(this.props.index.charAt(0)) * 200), right: 0 }
+    const draggableFix = (typeof this.props.index !== "string") ? (this.props.index % 2 === 0 ? {zIndex: '99', position: 'absolute', top: (this.props.index * 400), left: 0} : {zIndex: '99', position: 'absolute', top: (this.props.index * 400), right: 0}) : {zIndex: '99'}
     return (
       !isMobile && <Draggable>
         <div style={draggableFix}>

@@ -290,8 +290,8 @@ class MixPage extends React.Component {
         title={this.props.data.contentfulMix.title || ''}
         date={moment(this.props.data.contentfulMix.date).format('MMMM DD, YYYY') || ''}
         img={this.props.data.contentfulMix.thumbnailImage}
-        mixName={(this.props.data.contentfulMix.mixFile !== null) && this.props.data.contentfulMix.title || ''}
-        mixFile={(this.props.data.contentfulMix.mixFile !== null) && this.props.data.contentfulMix.mixFile.file.url || undefined}
+        mixName={this.props.data.contentfulMix.mixFile !== null && (this.props.data.contentfulMix.title || '')}
+        mixFile={this.props.data.contentfulMix.mixFile !== null && (this.props.data.contentfulMix.mixFile.file.url || undefined)}
         trackList={this.props.data.contentfulMix.tracklist || ''}
         playing={this.props.playing && (this.props.currentName === (this.props.data.contentfulMix.mixFile && (this.props.data.contentfulMix.mixFile.file.fileName || "")))}
         mixes={this.props.data.allContentfulMix.edges.map(el => el.node, {}).sort((a,b) => moment.utc(a.date).diff(moment.utc(b.date)))}

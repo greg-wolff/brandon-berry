@@ -104,7 +104,7 @@ class IndexPage extends React.Component {
             img={node.images}
             index={j++}
             />
-          else return
+          else return null
           })
           }
         </main>

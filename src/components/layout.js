@@ -1,6 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import styled, { createGlobalStyle } from 'styled-components'
+import styled from 'styled-components'
 import { Link, withPrefix, StaticQuery, graphql } from 'gatsby'
 import { connect } from 'react-redux'
 import { isMobile } from 'react-device-detect'

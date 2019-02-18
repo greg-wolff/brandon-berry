@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'gatsby'
-import Img from 'gatsby-image'
 import styled from 'styled-components'
 import media from '../utils/media'
 import Draggable from 'react-draggable'; 
@@ -39,13 +37,13 @@ export default class VideoBlock extends Component {
         this.setState({ pos: this.generateMargin(20) })
         break;
       case 1: 
-        this.setState({ pos: this.generateMargin(95) })
+        this.setState({ pos: this.generateMargin(75, 20) })
         break;
-      default: this.setState({ pos: this.generateMargin((this.props.index % 2 == 0) ? Math.floor(Math.random() * 31) : (Math.floor(Math.random() * 31) + 71), 60, 20) })
+      default: this.setState({ pos: this.generateMargin((this.props.index % 2 === 0) ? Math.floor(Math.random() * 31) : (Math.floor(Math.random() * 31) + 71), 60, 20) })
     }
   }
   render() {
-    const draggableFix = this.props.index % 2 == 0 ? {zIndex: '99', position: 'absolute', top: (this.props.index * 400), left: 0} : {zIndex: '99', position: 'absolute', top: (this.props.index * 400), right: 0}
+    const draggableFix = this.props.index % 2 === 0 ? {zIndex: '99', position: 'absolute', top: (this.props.index * 400), left: 0} : {zIndex: '99', position: 'absolute', top: (this.props.index * 400), right: 0}
     return (
       !isMobile && <Draggable>
         <div style={draggableFix}>
