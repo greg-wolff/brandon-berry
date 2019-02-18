@@ -7,8 +7,8 @@ import Draggable from 'react-draggable';
 import { isMobile } from 'react-device-detect';
 
 const VideoContainer = styled.video`  
-  min-width: 150px;
-  height: 150px;
+  min-width: 225px;
+  height: 225px;
   box-shadow: 6px 8px 4px rgba(0, 0, 0, 0.5);
   border: 1px solid #000;
   color: #000;
@@ -41,7 +41,7 @@ export default class VideoBlock extends Component {
       case 1: 
         this.setState({ pos: this.generateMargin(95) })
         break;
-      default: this.setState({ pos: this.generateMargin((this.props.index % 2 == 0) ? Math.floor(Math.random() * 31) : (Math.floor(Math.random() * 31) + 71)) })
+      default: this.setState({ pos: this.generateMargin((this.props.index % 2 == 0) ? Math.floor(Math.random() * 31) : (Math.floor(Math.random() * 31) + 71), 60, 20) })
     }
   }
   render() {

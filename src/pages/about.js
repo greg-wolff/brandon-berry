@@ -2,17 +2,16 @@ import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import styled from 'styled-components'
 import { StaticQuery, graphql } from 'gatsby'
-import PhotoBlock from '../components/PhotoBlock';
-import Img from 'gatsby-image'  
+import PhotoBlock from '../components/PhotoBlock'; 
 import media from '../utils/media'
 
 const AboutLayout = styled.div`
   display: grid;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 35px);
   grid-template-columns: .5fr .5fr;
   align-items: center;
-  margin: 40px auto;
+  margin: 35px auto 0;
   ${media.tablet`
     grid-template-columns: 1fr;
     overflow: hidden;
@@ -77,7 +76,7 @@ const AboutPage = () => (
     `}
     render={data => (
       <div>
-        { data.allContentfulAboutPage.edges.map(({ node }, i) =>
+        { data.allContentfulAboutPage.edges.map(({ node }) =>
         <AboutLayout key={i}>
           <AboutText>{node.aboutText.aboutText}</AboutText>
           {/* <Img fluid={node.aboutImage.fluid} /> */}
