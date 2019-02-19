@@ -77,7 +77,10 @@ class IndexPage extends React.Component {
       `
       
       }
-      render={data => (
+      render={data => {
+        let largest = data.allContentfulImage.edges.length > data.allContentfulVideo.edges.length ? data.allContentfulImage : data.allContentfulVideo;
+        let smallest = data.allContentfulImage.edges.length > data.allContentfulVideo.edges.length ? data.allContentfulVideo : data.allContentfulImage;
+        return (
         <main className="animated fadeInUp">
           { data.allContentfulMix.edges.sort((a,b) => moment.utc(a.node.date).diff(moment.utc(b.node.date))).slice(0).reverse().map(({ node }, i, arr) => {
               return (
@@ -94,21 +97,22 @@ class IndexPage extends React.Component {
             }
           )
           }
-          { data.allContentfulImage.edges.map((v, i) => [v, data.allContentfulVideo.edges[i]]).flat().filter(u => u !== undefined).map(({node}, i) => {   
-          if (node.video)
-            return <VideoBlock key={j}
-              video={node.video}
-              index={j++} />
-          if (node.images && !node.images[0].title.includes("aboutPage"))
-            return <PhotoBlock key={j}
-            img={node.images}
-            index={j++}
-            />
-          else return null
+          { largest.edges.map((v, i) => [v, smallest.edges[i]]).flat().filter(u => u !== undefined).map(({node}, i) => {
+            if (node.video)
+              return <VideoBlock key={j}
+                video={node.video}
+                index={j++} />
+            if (node.images && !node.images[0].title.includes("aboutPage"))
+              return <PhotoBlock key={j}
+              img={node.images}
+              index={j++}
+              />
+            else return null
           })
           }
         </main>
-      )}
+        )
+      }}
     />
   )
 }

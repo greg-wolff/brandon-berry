@@ -21,7 +21,6 @@ const CdCase = styled(Link)`
   text-decoration: none;
   transition: opacity 0.2s ease, transform 0.2s ease;
   transform: translateY(0);
-  transform: scale(1.2);
   >div {
     background: rgba(255, 255, 255, 0.5);
   }
@@ -100,10 +99,10 @@ export default class Cd extends Component {
   componentWillMount() {
     switch(this.props.index) {
       case 0: 
-        this.setState({ pos: this.generateMargin(95, 80, 60), loaded: true })
+        this.setState({ pos: this.generateMargin(95, 80, 30), loaded: true })
         break;
       case 1: 
-        this.setState({ pos: this.generateMargin(6), loaded: true })
+        this.setState({ pos: this.generateMargin(6, 30), loaded: true })
         break;
       default: this.setState({ pos: this.generateMargin((this.props.index % 2 !== 0) ? Math.floor(Math.random() * 31) : (Math.floor(Math.random() * 31) + 71)), loaded: true })
     }
