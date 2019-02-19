@@ -21,6 +21,7 @@ const CdCase = styled(Link)`
   text-decoration: none;
   transition: opacity 0.2s ease, transform 0.2s ease;
   transform: translateY(0);
+  transform: scale(1.2);
   >div {
     background: rgba(255, 255, 255, 0.5);
   }

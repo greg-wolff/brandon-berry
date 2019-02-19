@@ -47,7 +47,7 @@ export default class VideoBlock extends Component {
     return (
       !isMobile && <Draggable>
         <div style={draggableFix}>
-          <VideoContainer pos={this.state.pos} muted autoPlay>
+          <VideoContainer pos={this.state.pos} muted autoPlay loop>
             <source src={this.props.video.file.url} type="video/mp4"/>
           </VideoContainer>
         </div>
