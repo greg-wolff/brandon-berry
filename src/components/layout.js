@@ -85,7 +85,7 @@ const Header = props => {
             style={{ zIndex: 0, opacity: isHomepage ? 1 : 0 }}
           />
           <BackgroundVideo autoPlay muted loop>
-            <source src={`https://cdn-b-east.streamable.com/video/mp4/qo2xw.mp4?token=AQUh_FuDo6PsyIlEj-ginQ&expires=1550546127`} type={`video/mp4`} />
+            <source src={props.video} type={`video/mp4`} />
           </BackgroundVideo>
       </HeaderContainer> }
     </div>  
@@ -96,13 +96,10 @@ const Layout = props => (
   <StaticQuery
     query={graphql`
       query AudioQuery {
-        allContentfulMix {
+        allContentfulAboutPage {
           edges {
             node {
-              id
-              title
-              date
-              mixFile {
+              homepageVideo {
                 id
                 file {
                   url
@@ -123,7 +120,7 @@ const Layout = props => (
           ]}
         />
         <Player />
-        <Header location={props.location} currentName={props.currentName} playing={props.playing}/>
+        <Header location={props.location} currentName={props.currentName} playing={props.playing} video={data.allContentfulAboutPage.edges[0].node.homepageVideo.file.url}/>
         <Desktop>
           <Transition location={props.location}>
             {props.children}
@@ -141,16 +138,3 @@ const mapStateToProps = ({ playing, currentFile, currentName }) => {
 export default connect(
   mapStateToProps
 )(Layout)
-
-// allContentfulAboutPage {
-//   edges {
-//     node {
-//       homepageVideo {
-//         id
-//         file {
-//           url
-//         }
-//       }
-//     }
-//   }
-// }    
