@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import Detector from '../assets/js/Detector'
 import FrakturB from '../assets/fonts/FrakturB.json'
 import envMap from '../assets/images/env.jpg'
+import envMap2 from '../assets/images/env2.jpg'
 // import envMap2 from '../assets/images/envmap.jpg'
 import { isMobile } from 'react-device-detect'
 
 // import {ColorEdgesMaterial} from 'postprocessing/src/materials/ColorEdgesMaterial.js'
 
 const THREE = require("three");
-const WIDTH = global.innerWidth + 280,
+const WIDTH = global.innerWidth + 350,
       HEIGHT = (isMobile ? 130 : global.innerHeight);
 
 class Logo extends Component {
@@ -37,9 +38,9 @@ class Logo extends Component {
     cancelAnimationFrame(this.frameId)
   }
   animate = () => {
-    if (this.ambient.intensity <= 0.2) this.ambient.intensity += .001;
-    if (this.point.intensity <= 1) this.point.intensity += 0.01;
-    if (this.directionalLight.intensity <= 5) this.directionalLight.intensity += 0.01;  
+    // if (this.ambient.intensity <= 0.2) this.ambient.intensity += .001;
+    // if (this.point.intensity <= 1) this.point.intensity += 0.01;
+    // if (this.directionalLight.intensity <= 5) this.directionalLight.intensity += 0.01;  
 
     this.renderer.render(this.scene, this.camera)
     this.frameId = window.requestAnimationFrame(this.animate)
@@ -65,17 +66,17 @@ class Logo extends Component {
     // controls.update();
   
     // Add an ambient lights
-    this.ambient = new THREE.AmbientLight(0xffffff, 0);
+    this.ambient = new THREE.AmbientLight(0x000000, 1);
     this.scene.add(this.ambient);
   
-    this.directionalLight = new THREE.DirectionalLight( 0xffffff, 0 );
+    this.directionalLight = new THREE.DirectionalLight( 0x000000, 1);
     this.directionalLight.castShadow = true;
     this.directionalLight.position.set( new THREE.Vector3(0, 20, 20) );
 
     this.scene.add( this.directionalLight );
 
     // Add a point light that will cast shadows
-    this.point = new THREE.PointLight(0xffffff, 0);
+    this.point = new THREE.PointLight(0x000000, 1);
     this.point.position.set(25, 50, 25);
     this.point.castShadow = true;
     this.point.shadow.mapSize.width = 1024;
@@ -89,12 +90,12 @@ class Logo extends Component {
     this.createText();
   
     // Create a renderer
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     // Set size
     this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(WIDTH, HEIGHT);
     // Set color
-    this.renderer.setClearColor(0xffffff);
+    this.renderer.setClearColor(0xffffff, 0);
     this.renderer.gammaOutput = true;
     // Enable shadow mapping
     this.renderer.shadowMap.enabled = true;
@@ -107,7 +108,7 @@ class Logo extends Component {
     this.start()
   }
   createText = () => {
-    let emap = new THREE.TextureLoader().load(envMap, () => {
+    let emap = new THREE.TextureLoader().load(envMap2, () => {
       emap.mapping = THREE.SphericalReflectionMapping;    
       const material = (type) => ({
         "gold": [ 
@@ -126,7 +127,22 @@ class Logo extends Component {
             envMap: emap
           }) // side
         ],
-        "silver": [],
+        "silver": [
+          new THREE.MeshStandardMaterial({
+            color: "#999999",
+            emissive: "#444444",
+            roughness: 0.05,
+            metalness: 1,
+            envMap: emap
+          }), // front
+          new THREE.MeshStandardMaterial({
+            color: "#999999",
+            emissive: "#444444",
+            roughness: 0.05,
+            metalness: 1,
+            envMap: emap
+          }) // side
+        ],
         "royal": [
           new THREE.MeshStandardMaterial({
             color: "#35d3ff",
