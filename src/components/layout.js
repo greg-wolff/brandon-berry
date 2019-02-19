@@ -35,11 +35,11 @@ const Nav = styled.nav`
   padding: 7px 16px;
   z-index: 1;
   top: 0;
-  border-bottom: ${props => props.isMix ? `1px solid #000` : `1px solid #fff`};
+  border-bottom: 1px solid #fff;
+  background: rgba(255,255,255,0);
   a {
-    color: ${props => props.isMix ? `#000` : `#fff`};
+    color: #fff;
   }
-  background: ${props => props.isMix ? `rgba(255,255,255,1)` : `rgba(255,255,255,0)`};
 `;
 
 const NavLink = styled(Link)`
@@ -61,14 +61,13 @@ const BackgroundVideo = styled.video`
   min-width: 100%; 
   min-height: 100%;
   z-index: -1;
+  filter: saturate(1.3);
 `
 const Header = props => {
   const isHomepage = props.location.pathname === withPrefix("/");
-  const isMix = !(props.location.pathname === withPrefix("/")) && !(props.location.pathname === withPrefix("about"))
-  console.log(!(props.location.pathname === withPrefix("/")), )
   return (
     <div>
-      <Nav isHomepage={isHomepage} isMix={isMix}>
+      <Nav>
         { (!isHomepage && isMobile) ? 
         <NavLink to="/" style={{ fontFamily: `Times New Roman`, fontSize: `19pt`, lineHeight: `0.65` }}>←</NavLink> :
         <NavLink to="/">Index</NavLink> }

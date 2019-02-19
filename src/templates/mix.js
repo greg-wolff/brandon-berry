@@ -13,7 +13,6 @@ import { isBrowser } from 'react-device-detect'
 const DetailLayout = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
-  background: white;
   height: calc(100vh - 35px);
   width: 100vw;
   overflow-y: scroll;
@@ -25,7 +24,7 @@ const DetailLayout = styled.div`
 `
 
 const MixColumn = styled.div`
-  border-right: 1px solid #000;
+  border-right: 1px solid white;
   display: grid;
   flex-direction: column;
   grid-template: .7fr .3fr / 1fr;
@@ -51,14 +50,14 @@ const NextMix = styled(Link)`
   align-items: center;
   justify-items: center;
   text-align: center;
-  border-top: 1px solid #000;
+  border-top: 1px solid white;
   text-decoration: none;
   color: #000;
   &:hover {
     text-decoration: underline;
   }
   ${media.tablet`
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid white;
     padding: 15px 85px;
   `}
 `
@@ -154,7 +153,7 @@ const MixTracklist = styled(ReactMarkdown)`
     transition: background-color 0.1s ease;
     cursor: crosshair;
     &:hover {
-      background-color: #d2eaff;
+      background-color: rgba(189, 221, 249, 0.47);
     }
   }
   ${media.tablet`
@@ -162,7 +161,7 @@ const MixTracklist = styled(ReactMarkdown)`
     -webkit-overflow-scrolling: touch;
     width: calc(100% + 32px);
     margin-left: -32px;
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 3px;
     padding: 25px 15px;
     table {
@@ -251,34 +250,34 @@ const Arrow = styled.span`
 
 const ProjectInfo = props => {
   return (
-    <DetailLayout>
-      <MixColumn>
-        <HoverPlay mixName={props.mixName} mixFile={props.mixFile}>
-          <RecordBox>
-          {(props.img && props.mixFile) ? <Platter fluid={props.img.fluid}
-              backgroundColor={"#ffffff"}
-              playing={props.playing}
-              fadeIn={true}/> : <div>x___x</div>
-            }
-          </RecordBox>
-          {props.mixes.some((el, i) => ((el.title === props.title) && (i === props.mixes.length-1))) && <RecordLabel>Newest Mix!</RecordLabel>}
-        </HoverPlay>
-        {props.mixes.some((el, i) => ((el.title === props.title) && (i === props.mixes.length-1))) ? 
-        <NextMix to={props.slug}>
-          {props.nextMix}
-        </NextMix> :
-        <NextMix to={props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).fields.slug}>
-          <div><div>Next Mix...</div><PocketRecord>{props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).title}<Img fluid={props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).thumbnailImage.fluid}/></PocketRecord></div>
-        </NextMix>
-        }
-      </MixColumn>
-      <DetailColumn>
-        {isBrowser && <Arrow onClick={() => window.history.back()}>←</Arrow>}
-        <MixHeader>{props.date}<br/>{props.title}</MixHeader>
-        <MixLink href={`https:${props.mixFile}`} download={props.mixName}>Download Mix</MixLink>
-        <MixTracklist source={props.trackList.tracklist}/>
-      </DetailColumn>
-    </DetailLayout>
+    <HoverPlay mixName={props.mixName} mixFile={props.mixFile}>
+      <DetailLayout>
+        <MixColumn>
+            <RecordBox>
+            {(props.img && props.mixFile) ? <Platter fluid={props.img.fluid}
+                backgroundColor={"#ffffff"}
+                playing={props.playing}
+                fadeIn={true}/> : <div>x___x</div>
+              }
+            </RecordBox>
+            {props.mixes.some((el, i) => ((el.title === props.title) && (i === props.mixes.length-1))) && <RecordLabel>Newest Mix!</RecordLabel>}
+          {props.mixes.some((el, i) => ((el.title === props.title) && (i === props.mixes.length-1))) ? 
+          <NextMix className={`noHover`} to={props.slug}>
+            {props.nextMix}
+          </NextMix> :
+          <NextMix to={props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).fields.slug}>
+            <div><div>Next Mix...</div><PocketRecord>{props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).title}<Img fluid={props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).thumbnailImage.fluid}/></PocketRecord></div>
+          </NextMix>
+          }
+        </MixColumn>
+        <DetailColumn>
+          {isBrowser && <Arrow onClick={() => window.history.back()}>←</Arrow>}
+          <MixHeader>{props.date}<br/>{props.title}</MixHeader>
+          <MixLink href={`https:${props.mixFile}`} download={props.mixName}>Download Mix</MixLink>
+          <MixTracklist source={props.trackList.tracklist}/>
+        </DetailColumn>
+      </DetailLayout>
+    </HoverPlay>
   );
 };
 
@@ -293,7 +292,7 @@ class MixPage extends React.Component {
         mixName={this.props.data.contentfulMix.mixFile !== null && (this.props.data.contentfulMix.title || '')}
         mixFile={this.props.data.contentfulMix.mixFile !== null && (this.props.data.contentfulMix.mixFile.file.url || undefined)}
         trackList={this.props.data.contentfulMix.tracklist || ''}
-        playing={this.props.playing && (this.props.currentName === (this.props.data.contentfulMix.mixFile && (this.props.data.contentfulMix.mixFile.file.fileName || "")))}
+        playing={this.props.playing && (this.props.currentName === (this.props.data.contentfulMix.mixFile !== null && (this.props.data.contentfulMix.title || "")))}
         mixes={this.props.data.allContentfulMix.edges.map(el => el.node, {}).sort((a,b) => moment.utc(a.date).diff(moment.utc(b.date)))}
         nextMix={this.props.data.allContentfulAboutPage.edges[0].node.nextMix.nextMix}
         dispatch={this.props.dispatch}

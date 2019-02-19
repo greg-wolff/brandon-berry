@@ -12,6 +12,7 @@ const MarqueeDisplay = styled.div`
   white-space: nowrap;
   overflow: hidden;
   box-sizing: border-box;
+  color: white;
   &:hover {
     cursor: url(${props => props.playing ? PauseSvg : PlaySvg}) 6 8, auto;
   }

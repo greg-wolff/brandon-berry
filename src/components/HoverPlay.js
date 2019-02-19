@@ -26,7 +26,7 @@ const PlayCursor = styled.div`
       padding: 25px;
       position: absolute;
       bottom: 30px;
-      right: calc(50% - 40px);
+      right: calc(50% - 52px);
       transform-origin: bottom right;
       transform: scale(0.8);
       z-index: 100;
@@ -35,17 +35,29 @@ const PlayCursor = styled.div`
   `}
 `
 
-const HoverPlay = props => (
-      <PlayCursor playing={props.playing && (props.mixName === props.currentName)} onClick={() =>
-        props.playing && (props.mixName === props.currentName) ? 
-        props.dispatch({ type: `PAUSE` }) :
-        props.dispatch({ type: `PLAY`,
-          currentFile: props.mixFile,
-          currentName: props.mixName
-        })}>
-        {props.children}
-      </PlayCursor>
-    )
+class HoverPlay extends React.Component {
+      state = {
+        disable: false
+      }
+      render() {
+        return <PlayCursor
+            playing={this.props.playing && (this.props.mixName === this.props.currentName)}
+            onMouseMove={e =>
+              e.target.classList.forEach(el => el === "noHover" ? this.setState({ disable: true }) : this.setState({ disable: false }))
+            }
+            onClick={e => {
+              if (this.state.disable) return
+              return this.props.playing && (this.props.mixName === this.props.currentName) ? 
+              this.props.dispatch({ type: `PAUSE` }) :
+              this.props.dispatch({ type: `PLAY`,
+                currentFile: this.props.mixFile,
+                currentName: this.props.mixName
+              })}}
+          >
+            {this.props.children}
+          </PlayCursor>
+      }
+}
 
 const mapStateToProps = ({ playing, currentFile, currentName }) => {
   return { playing, currentFile, currentName }
