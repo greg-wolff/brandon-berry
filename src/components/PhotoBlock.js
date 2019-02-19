@@ -6,8 +6,8 @@ import Draggable from 'react-draggable';
 import { isMobile } from 'react-device-detect';
 
 const PhotoContainer = styled.div`  
-  width: 225px;
-  height: 225px;
+  width: 200px;
+  height: 200px;
   box-shadow: 6px 8px 4px rgba(0, 0, 0, 0.5);
   border: 1px solid #000;
   color: #000;
@@ -31,14 +31,14 @@ export default class PhotoBlock extends Component {
     loaded: false,
     pos: null
   }
-  generateMargin = (x, mt=60, mb='', x2) => `${mt}px calc(${x2 || x}% - ${(x > 50 ? 350 : -33)}px) ${mb}${mb && 'px'}`
+  generateMargin = (x, mt=60, mb='', x2) => `${mt}px calc(${x2 || x}% - ${(x > 40 ? 350 : -33)}px) ${mb}${mb && 'px'}`
   componentDidMount() {
     if (typeof this.props.index === "string")
       this.setState({ pos: `0px` })
     else
       switch(this.props.index) {
         case 0: 
-          this.setState({ pos: this.generateMargin(0, 15, '', 60) })
+          this.setState({ pos: this.generateMargin(0, 25, '', 80) })
           break;
         case 1: 
           this.setState({ pos: this.generateMargin(75, 20) })
@@ -47,7 +47,7 @@ export default class PhotoBlock extends Component {
       }
   }
   render() {
-    const draggableFix = (typeof this.props.index !== "string") ? (this.props.index % 2 === 0 ? {zIndex: '99', position: 'absolute', top: (this.props.index * 400), left: 0} : {zIndex: '99', position: 'absolute', top: (this.props.index * 400), right: 0}) : {zIndex: '99'}
+    const draggableFix = (typeof this.props.index !== "string") ? (this.props.index % 2 === 0 ? {zIndex: '99', position: 'absolute', top: (this.props.index * 360), left: 0} : {zIndex: '99', position: 'absolute', top: (this.props.index * 360), right: 0}) : {zIndex: '99'}
     return (
       !isMobile && <Draggable>
         <div style={draggableFix}>
