@@ -75,19 +75,20 @@ const Header = props => {
         <NavPlayer>{props.currentName}</NavPlayer>
         <NavLink to="/about">About</NavLink>
       </Nav>
-      { !isMobile &&
-        <HeaderContainer style={{zIndex: -1}}>
-          <Logo
-            text="Emerald Air"
-            material="silver"
-            height={1}
-            fontName="FrakturB"
-            style={{ zIndex: 0, opacity: isHomepage ? 1 : 0 }}
-          />
-          <BackgroundVideo autoPlay muted loop>
-            <source src={props.video} type={`video/mp4`} />
-          </BackgroundVideo>
-      </HeaderContainer> }
+      <HeaderContainer style={{zIndex: -1}}>
+      { !isMobile && 
+        <Logo
+          text="Emerald Air"
+          material="silver"
+          height={1}
+          fontName="FrakturB"
+          style={{ zIndex: 0, opacity: isHomepage ? 1 : 0 }}
+        />
+      }
+      <BackgroundVideo autoPlay muted loop>
+        <source src={props.video} type={`video/mp4`} />
+      </BackgroundVideo>
+      </HeaderContainer> 
     </div>  
   );
 };
