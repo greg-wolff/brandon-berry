@@ -31,23 +31,23 @@ export default class PhotoBlock extends Component {
     loaded: false,
     pos: null
   }
-  generateMargin = (x, mt=60, mb='', x2) => `${mt}px calc(${x2 || x}% - ${(x > 40 ? 350 : -33)}px) ${mb}${mb && 'px'}`
+  generateMargin = (x, mt=60, mb='', x2) => `${mt}px calc(${x2 ? x2 : x}% - ${(x > 40 ? 350 : -33)}px) ${mb}${mb && 'px'}`
   componentDidMount() {
     if (typeof this.props.index === "string")
       this.setState({ pos: `0px` })
     else
       switch(this.props.index) {
         case 0: 
-          this.setState({ pos: this.generateMargin(0, 25, '', 80) })
+          this.setState({ pos: this.generateMargin(0, 20, '', 80) })
           break;
         case 1: 
-          this.setState({ pos: this.generateMargin(75, 20) })
+          this.setState({ pos: this.generateMargin(50, 70, '', 1) })
           break;
         default: this.setState({ pos: this.generateMargin((this.props.index % 2 === 0) ? Math.floor(Math.random() * 50) : (Math.floor(Math.random() * 31) + 71), 60, 20) })
       }
   }
   render() {
-    const draggableFix = (typeof this.props.index !== "string") ? (this.props.index % 2 === 0 ? {zIndex: '99', position: 'absolute', top: (this.props.index * 360), left: 0} : {zIndex: '99', position: 'absolute', top: (this.props.index * 360), right: 0}) : {zIndex: '99'}
+    const draggableFix = (typeof this.props.index !== "string") ? (this.props.index % 2 === 0 ? {zIndex: '99', position: 'absolute', top: (this.props.index * 360 + (this.props.last ? 700 : 0)), left: 0} : {zIndex: '99', position: 'absolute', top: (this.props.index * 360 + (this.props.last ? 700 : 0)), right: 0}) : {zIndex: '99'}
     return (
       !isMobile && <Draggable>
         <div style={draggableFix}>

@@ -97,13 +97,14 @@ class IndexPage extends React.Component {
             }
           )
           }
-          { largest.edges.map((v, i) => [v, smallest.edges[i]]).flat().filter(u => u !== undefined).map(({node}, i) => {
+          { largest.edges.map((v, i) => [smallest.edges[i], v]).flat().filter(u => u !== undefined).map(({node}) => {
             if (node.video)
               return <VideoBlock key={j}
                 video={node.video}
                 index={j++} />
             if (node.images && !node.images[0].title.includes("aboutPage"))
               return <PhotoBlock key={j}
+              last={node.images[0].title === `fallig`}
               img={node.images}
               index={j++}
               />

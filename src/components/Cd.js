@@ -99,10 +99,10 @@ export default class Cd extends Component {
   componentWillMount() {
     switch(this.props.index) {
       case 0: 
-        this.setState({ pos: this.generateMargin(95, 80, 30), loaded: true })
+        this.setState({ pos: this.generateMargin(101, 70, 30), loaded: true })
         break;
       case 1: 
-        this.setState({ pos: this.generateMargin(6, 30), loaded: true })
+        this.setState({ pos: this.generateMargin(2, 50), loaded: true })
         break;
       default: this.setState({ pos: this.generateMargin((this.props.index % 2 !== 0) ? Math.floor(Math.random() * 31) : (Math.floor(Math.random() * 31) + 71)), loaded: true })
     }
@@ -117,7 +117,7 @@ export default class Cd extends Component {
   }
   render() {
     return (
-      (this.props.loaded && isMobile ? 
+      (isMobile ? 
       <CdCase to={this.props.mix} pos={this.state.pos}>
         <Spine>
           <PlayButton 
@@ -138,27 +138,27 @@ export default class Cd extends Component {
         </Insert>
       </CdCase> :
       <Draggable onDrag={this.onDrag} onStop={this.onEndDrag}>
-      <div>
-        <CdCase to={this.props.mix} pos={this.state.pos} onClick={this.checkClickPropagation} innerRef={c => this._ref = c}>
-          <Spine>
-            <PlayButton 
-              playing={false}
-              currentFile={""}
-              currentName={""}
-              mixFile={this.props.mixFile}
-              mixName={this.props.mixName} />
-            <Date>
-              {moment(this.props.date).format('MM/DD/YYYY')}
-            </Date>
-          </Spine>
-          <Insert>
-            {this.props.img ? <Img fluid={this.props.img.fluid}
-            backgroundColor={"#eaeaea"}
-            fadeIn={true} /> : <EmptyImg colors={['#FFF7CD', '#FFB35A', '#5D5AFF']}/>}
-            <Title>{this.props.title}</Title>
-          </Insert>
-        </CdCase>
-      </div>
+        <div>
+          <CdCase to={this.props.mix} pos={this.state.pos} onClick={this.checkClickPropagation} innerRef={c => this._ref = c}>
+            <Spine>
+              <PlayButton 
+                playing={false}
+                currentFile={""}
+                currentName={""}
+                mixFile={this.props.mixFile}
+                mixName={this.props.mixName} />
+              <Date>
+                {moment(this.props.date).format('MM/DD/YYYY')}
+              </Date>
+            </Spine>
+            <Insert>
+              {this.props.img ? <Img fluid={this.props.img.fluid}
+              backgroundColor={"#eaeaea"}
+              fadeIn={true} /> : <EmptyImg colors={['#FFF7CD', '#FFB35A', '#5D5AFF']}/>}
+              <Title>{this.props.title}</Title>
+            </Insert>
+          </CdCase>
+        </div>
       </Draggable>)
     )
   }

@@ -34,7 +34,7 @@ export default class VideoBlock extends Component {
   componentDidMount() {
     switch(this.props.index) {
       case 0: 
-      this.setState({ pos: this.generateMargin(0, 25, '', 80) })
+      this.setState({ pos: this.generateMargin(0, 20, '', 80) })
       break;
     case 1: 
       this.setState({ pos: this.generateMargin(65, 20) })
