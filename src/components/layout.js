@@ -71,7 +71,7 @@ const Header = props => {
       <Nav>
         { (!isHomepage && isMobile) ? 
         <NavLink to="/" style={{ fontFamily: `Times New Roman`, fontSize: `19pt`, lineHeight: `0.65` }}>←</NavLink> :
-        <NavLink to="/">Index</NavLink> }
+        <NavLink to="/">Home</NavLink> }
         <NavPlayer>{props.currentName}</NavPlayer>
         <NavLink to="/about">About</NavLink>
       </Nav>
