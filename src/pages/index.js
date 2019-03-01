@@ -80,6 +80,7 @@ class IndexPage extends React.Component {
       render={data => {
         let largest = data.allContentfulImage.edges.length > data.allContentfulVideo.edges.length ? data.allContentfulImage : data.allContentfulVideo;
         let smallest = data.allContentfulImage.edges.length > data.allContentfulVideo.edges.length ? data.allContentfulVideo : data.allContentfulImage;
+        console.log(largest, smallest)
         return (
         <main className="animated fadeInUp">
           { data.allContentfulMix.edges.sort((a,b) => moment.utc(a.node.date).diff(moment.utc(b.node.date))).slice(0).reverse().map(({ node }, i, arr) => {
