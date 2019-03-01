@@ -65,7 +65,8 @@ const BackgroundVideo = styled.video`
 `
 const Header = props => {
   const isHomepage = props.location.pathname === withPrefix("/");
-  return (
+  const isTrackUpload = props.location.pathname === withPrefix("/trackUpload/");
+  return !isTrackUpload && (
     <div>
       <Nav>
         { (!isHomepage && isMobile) ? 
