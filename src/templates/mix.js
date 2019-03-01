@@ -146,12 +146,12 @@ const MixLink = styled.a`
 
 const MixTracklist = styled(ReactMarkdown)`
   margin-top: 50pt;
+  cursor: crosshair;
   thead {
     text-align: left;
   }
   tr {
     transition: background-color 0.1s ease;
-    cursor: crosshair;
     &:hover {
       background-color: rgba(189, 221, 249, 0.47);
     }
@@ -224,7 +224,7 @@ const RecordBox = styled.div`
 `
 
 const RecordLabel = styled.span`
-  background: white;
+  background: rgba(255, 255, 255, .5);
   border: 1px solid #000;
   border-radius: 4px;
   padding: 3px 7px;
@@ -265,16 +265,18 @@ const ProjectInfo = props => {
           <NextMix className={`noHover`} to={props.slug}>
             {props.nextMix}
           </NextMix> :
-          <NextMix to={props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).fields.slug}>
-            <div><div>Next Mix...</div><PocketRecord>{props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).title}<Img fluid={props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).thumbnailImage.fluid}/></PocketRecord></div>
+          <NextMix className={`noHover`} to={props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).fields.slug}>
+            <div className={`noHover`}><div className={`noHover`}>Next Mix...</div><PocketRecord className={`noHover`}>{props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).title}<Img className={`noHover`} fluid={props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).thumbnailImage.fluid}/></PocketRecord></div>
           </NextMix>
           }
         </MixColumn>
         <DetailColumn>
-          {isBrowser && <Arrow onClick={() => window.history.back()}>←</Arrow>}
+          {isBrowser && <Arrow className={`noHover`} onClick={() => window.history.back()}>←</Arrow>}
           <MixHeader>{props.date}<br/>{props.title}</MixHeader>
-          <MixLink href={`https:${props.mixFile}`} download={props.mixName}>Download Mix</MixLink>
-          <MixTracklist source={props.trackList.tracklist}/>
+          <MixLink className={`noHover`} href={`https:${props.mixFile}`} download={props.mixName}>Download Mix</MixLink>
+          <MixTracklist className={`noHover`} source={props.trackList.tracklist} renderers={{
+                        table: (props) => <table className="noHover">{props.children}</table>
+                    }}/>
         </DetailColumn>
       </DetailLayout>
     </HoverPlay>

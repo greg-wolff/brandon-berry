@@ -78,8 +78,8 @@ class IndexPage extends React.Component {
       
       }
       render={data => {
-        let largest = data.allContentfulImage.edges.length > data.allContentfulVideo.edges.length ? data.allContentfulImage : data.allContentfulVideo;
-        let smallest = data.allContentfulImage.edges.length > data.allContentfulVideo.edges.length ? data.allContentfulVideo : data.allContentfulImage;
+        let largest = data.allContentfulImage.edges.length > data.allContentfulVideo.edges.length ? data.allContentfulImage.edges.filter(el => !el.node.images[0].title.includes("aboutPage")) : data.allContentfulVideo.edges;
+        let smallest = data.allContentfulImage.edges.length > data.allContentfulVideo.edges.length ? data.allContentfulVideo.edges : data.allContentfulImage.edges.filter(el => !el.node.images[0].title.includes("aboutPage"));
         console.log(largest, smallest)
         return (
         <main className="animated fadeInUp">
@@ -98,7 +98,7 @@ class IndexPage extends React.Component {
             }
           )
           }
-          { largest.edges.map((v, i) => [smallest.edges[i], v]).flat().filter(u => u !== undefined).map(({node}) => {
+          { largest.map((v, i) => [smallest[i], v]).flat().filter(u => u !== undefined).map(({node}) => {
             if (node.video)
               return <VideoBlock key={j}
                 video={node.video}

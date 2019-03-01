@@ -42,10 +42,10 @@ class HoverPlay extends React.Component {
       render() {
         return <PlayCursor
             playing={this.props.playing && (this.props.mixName === this.props.currentName)}
-            onMouseMove={e =>
-              e.target.classList.forEach(el => el === "noHover" ? this.setState({ disable: true }) : this.setState({ disable: false }))
-            }
-            onClick={e => {
+            onMouseMove={e => {
+              (e.target.classList.contains("noHover") || e.target.tagName == 'TD') ? this.setState({ disable: true }) : this.setState({ disable: false })
+            }}
+            onClick={() => {
               if (this.state.disable) return
               return this.props.playing && (this.props.mixName === this.props.currentName) ? 
               this.props.dispatch({ type: `PAUSE` }) :
