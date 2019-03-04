@@ -15,6 +15,7 @@ module.exports = {
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN || ``,
       },
     },
+    
     {
       resolve: `gatsby-plugin-web-font-loader`,
       options: {
@@ -37,5 +38,12 @@ module.exports = {
       },
     },
     `gatsby-plugin-netlify`,
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: `UA-113070557-4`,
+        head: false,
+      },
+    },
   ],
 }
