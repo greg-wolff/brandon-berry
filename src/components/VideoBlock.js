@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import media from '../utils/media'
 import Draggable from 'react-draggable'; 
-import { isMobile } from 'react-device-detect';
 
 const VideoContainer = styled.video`  
   width: 266px;
@@ -45,7 +44,7 @@ export default class VideoBlock extends Component {
   render() {
     const draggableFix = this.props.index % 2 === 0 ? {zIndex: '99', position: 'absolute', top: (this.props.index * 360), left: 0} : {zIndex: '99', position: 'absolute', top: (this.props.index * 360), right: 0}
     return (
-      !isMobile && <Draggable>
+       <Draggable>
         <div style={draggableFix}>
           <VideoContainer pos={this.state.pos} muted autoPlay loop>
             <source src={this.props.video.file.url} type="video/mp4"/>

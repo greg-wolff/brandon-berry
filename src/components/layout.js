@@ -39,7 +39,7 @@ const Nav = styled.nav`
   justify-content: space-between;
   width: 100vw;
   padding: 7px 16px;
-  z-index: 1;
+  z-index: 0;
   top: 0;
   border-bottom: 1px solid #fff;
   background: rgba(255,255,255,0);

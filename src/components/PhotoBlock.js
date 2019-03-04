@@ -3,7 +3,6 @@ import Img from 'gatsby-image'
 import styled from 'styled-components'
 import media from '../utils/media'
 import Draggable from 'react-draggable'; 
-import { isMobile } from 'react-device-detect';
 
 const PhotoContainer = styled.div`  
   user-select: none;
@@ -50,7 +49,7 @@ export default class PhotoBlock extends Component {
   render() {
     const draggableFix = (typeof this.props.index !== "string") ? (this.props.index % 2 === 0 ? {zIndex: '99', position: 'absolute', top: (this.props.index * 360 + (this.props.last ? 700 : 0)), left: 0} : {zIndex: '99', position: 'absolute', top: (this.props.index * 360 + (this.props.last ? 700 : 0)), right: 0}) : {zIndex: '99'}
     return (
-      !isMobile && <Draggable>
+       <Draggable>
         <div style={draggableFix}>
           <PhotoContainer pos={this.state.pos}>
             {this.props.img && <Img fluid={this.props.img[0].fluid}

@@ -5,6 +5,7 @@ import Cd from '../components/Cd'
 import moment from 'moment'
 import PhotoBlock from '../components/PhotoBlock';
 import VideoBlock from '../components/VideoBlock';
+import { isMobile } from 'react-device-detect';
 
 Object.defineProperty(Array.prototype, 'flat', {
   value: function(depth = 1) {
@@ -99,11 +100,11 @@ class IndexPage extends React.Component {
           )
           }
           { largest.map((v, i) => [smallest[i], v]).flat().filter(u => u !== undefined).map(({node}) => {
-            if (node.video)
+            if (!isMobile && node.video)
               return <VideoBlock key={j}
                 video={node.video}
                 index={j++} />
-            if (node.images && !node.images[0].title.includes("aboutPage"))
+            if (!isMobile && node.images && !node.images[0].title.includes("aboutPage"))
               return <PhotoBlock key={j}
               last={node.images[0].title === `fallig`}
               img={node.images}
