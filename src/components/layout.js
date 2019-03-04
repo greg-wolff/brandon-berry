@@ -134,6 +134,7 @@ const Layout = props => (
             { prefix: "og: http://ogp.me/ns#", property: 'og:image', content: 'http://emeraldair.org' + OgImage },
             { prefix: "og: http://ogp.me/ns#", property: 'og:image:secure_url', content: 'https://emeraldair.org' + OgImage },
             { prefix: "og: http://ogp.me/ns#", property: 'og:url', content: 'http://emeraldair.org/' },
+            { prefix: "og: http://ogp.me/ns#", property: 'og:secure_url', content: 'https://emeraldair.org/' },
           ]}
         />
         <Player />
