@@ -9,7 +9,7 @@ import moment from 'moment'
 import Player from "./Player"
 import Transition from "../components/transition"
 import NavPlayer from '../components/NavPlayer'
-import OgImage from '../assets/images/og.jpg'
+import OgImage from '../assets/images/og.png'
 
 //import './index.css'
 import "../assets/css/grid.css";
