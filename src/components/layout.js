@@ -131,8 +131,8 @@ const Layout = props => (
             { prefix: "og: http://ogp.me/ns#", property: 'og:title', content: 'Emerald Air' },
             { prefix: "og: http://ogp.me/ns#", property: 'og:description', content: 'Emerald Air is a virtual CD case filled with mixes and art clip-outs uploaded by Brandon Berry.' },
             { prefix: "og: http://ogp.me/ns#", property: 'og:type', content: 'website' },
-            { prefix: "og: http://ogp.me/ns#", property: 'og:image', content: 'http://emeraldair.org/' + OgImage },
-            { prefix: "og: http://ogp.me/ns#", property: 'og:image:secure_url', content: 'https://emeraldair.org/' + OgImage },
+            { prefix: "og: http://ogp.me/ns#", property: 'og:image', content: 'http://emeraldair.org' + OgImage },
+            { prefix: "og: http://ogp.me/ns#", property: 'og:image:secure_url', content: 'https://emeraldair.org' + OgImage },
             { prefix: "og: http://ogp.me/ns#", property: 'og:url', content: 'http://emeraldair.org/' },
           ]}
         />
