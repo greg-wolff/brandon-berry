@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ReactMarkdown from 'react-markdown'
+import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 import Link from 'gatsby-link'
 import Img from 'gatsby-image'
@@ -251,6 +252,8 @@ const Arrow = styled.span`
 const ProjectInfo = props => {
   return (
     <HoverPlay mixName={props.mixName} mixFile={props.mixFile}>
+      <Helmet
+        title={props.mixName}/>
       <DetailLayout>
         <MixColumn>
             <RecordBox>

@@ -1,13 +1,15 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import styled from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import { Link, withPrefix, StaticQuery, graphql } from 'gatsby'
 import { connect } from 'react-redux'
 import { isMobile } from 'react-device-detect'
+import moment from 'moment'
 
 import Player from "./Player"
 import Transition from "../components/transition"
 import NavPlayer from '../components/NavPlayer'
+import { OgImage } from '../assets/images/og.jpg'
 
 //import './index.css'
 import "../assets/css/grid.css";
@@ -15,6 +17,10 @@ import "../assets/css/animate.css";
 import "../assets/css/styles.css";
 
 import Logo from '../components/Logo';
+
+const GlobalStyle = createGlobalStyle`
+  img, a{ -webkit-user-select: none; /* Safari 3.1+ */ -moz-user-select: none; /* Firefox 2+ */ -ms-user-select: none; /* IE 10+ */ user-select: none; /* Standard syntax */ user-drag: none; -webkit-user-drag: none; }
+`
 
 const HeaderContainer = styled.div`
   width: 100%;
@@ -68,6 +74,7 @@ const Header = props => {
   const isTrackUpload = props.location.pathname === withPrefix("/trackUpload/");
   return !isTrackUpload && (
     <div>
+      <GlobalStyle />
       <Nav>
         { (!isHomepage && isMobile) ? 
         <NavLink to="/" style={{ fontFamily: `Times New Roman`, fontSize: `19pt`, lineHeight: `0.65` }}>←</NavLink> :
@@ -114,10 +121,19 @@ const Layout = props => (
     render={data => (
       <div>
         <Helmet
-          title="Brandon Berry"
+          title="Emerald Air"
+          titleTemplate="%s | Emerald Air"
           meta={[
-            { name: "description", content: "Sample" },
-            { name: "keywords", content: "sample, something" }
+            { name: 'description', 
+              content: 'Emerald Air is a virtual CD case filled with mixes and art clip-outs uploaded by Brandon Berry. It is home to the show Left Field Lag which airs live on KZSC Santa Cruz 88.1FM' },
+            { name: 'keywords', 
+              content: `brandon berry, emerald air, brandon berry dj, left field lag, underground house djs ${moment().format('YYYY')}, ra psychedelic djs ${moment().format('YYYY')}, ra psychedelic mix ${moment().format('YYYY')}, underground bay area djs` },
+            { prefix: "og: http://ogp.me/ns#", property: 'og:title', content: 'Emerald Air' },
+            { prefix: "og: http://ogp.me/ns#", property: 'og:description', content: 'Emerald Air is a virtual CD case filled with mixes and art clip-outs uploaded by Brandon Berry.' },
+            { prefix: "og: http://ogp.me/ns#", property: 'og:type', content: 'website' },
+            { prefix: "og: http://ogp.me/ns#", property: 'og:image', content: 'http://emeraldair.org/' + OgImage },
+            { prefix: "og: http://ogp.me/ns#", property: 'og:image:secure_url', content: 'https://emeraldair.org/' + OgImage },
+            { prefix: "og: http://ogp.me/ns#", property: 'og:url', content: 'http://emeraldair.org/' },
           ]}
         />
         <Player />

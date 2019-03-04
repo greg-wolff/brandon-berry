@@ -6,6 +6,7 @@ import Draggable from 'react-draggable';
 import { isMobile } from 'react-device-detect';
 
 const PhotoContainer = styled.div`  
+  user-select: none;
   width: 200px;
   height: 200px;
   box-shadow: 6px 8px 4px rgba(0, 0, 0, 0.5);
