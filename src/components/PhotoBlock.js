@@ -33,7 +33,7 @@ export default class PhotoBlock extends Component {
     pos: null
   }
   generateMargin = (x, mt=60, mb='', x2) => `${mt}px calc(${x2 ? x2 : x}% - ${(x > 40 ? 350 : -33)}px) ${mb}${mb && 'px'}`
-  componentDidMount() {
+  componentWillMount() {
     if (typeof this.props.index === "string")
       this.setState({ pos: `0px` })
     else

@@ -5,8 +5,8 @@ import Draggable from 'react-draggable';
 import { isMobile } from 'react-device-detect';
 
 const VideoContainer = styled.video`  
-  min-width: 200px;
-  height: 200px;
+  width: 266px;
+  max-height: 200px;
   box-shadow: 6px 8px 4px rgba(0, 0, 0, 0.5);
   border: 1px solid #000;
   color: #000;
@@ -31,7 +31,7 @@ export default class VideoBlock extends Component {
     pos: null
   }
   generateMargin = (x, mt=60, mb='', x2) => `${mt}px calc(${x2 || x}% - ${(x > 40 ? 350 : -33)}px) ${mb}${mb && 'px'}`
-  componentDidMount() {
+  componentWillMount() {
     switch(this.props.index) {
       case 0: 
       this.setState({ pos: this.generateMargin(0, 20, '', 80) })
@@ -49,6 +49,7 @@ export default class VideoBlock extends Component {
         <div style={draggableFix}>
           <VideoContainer pos={this.state.pos} muted autoPlay loop>
             <source src={this.props.video.file.url} type="video/mp4"/>
+            Your browser can't play videos! :(
           </VideoContainer>
         </div>
       </Draggable>
