@@ -92,7 +92,7 @@ const Header = props => {
           style={{ zIndex: 0, opacity: isHomepage ? 1 : 0 }}
         />
       }
-      <BackgroundVideo muted paused loop>
+      <BackgroundVideo muted loop>
         <source src={props.video} type={`video/mp4`} />
       </BackgroundVideo>
       </HeaderContainer> 
