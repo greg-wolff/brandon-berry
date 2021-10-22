@@ -10,6 +10,7 @@ class Player extends Component {
         id={uuidv4()}
         src={`http:${this.props.currentFile}`}
         playing={this.props.playing}
+        volume={0.2}
         html5
       />
     )

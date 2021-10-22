@@ -28,7 +28,7 @@ const AboutLayout = styled.div`
 `
 
 const AboutText = styled(ReactMarkdown)`
-  color: black;
+  color: white;
   margin: 0 17px;
 `
 

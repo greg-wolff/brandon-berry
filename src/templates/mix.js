@@ -53,7 +53,7 @@ const NextMix = styled(Link)`
   text-align: center;
   border-top: 1px solid white;
   text-decoration: none;
-  color: #000;
+  color: #fff;
   &:hover {
     text-decoration: underline;
   }
@@ -126,6 +126,7 @@ const DetailColumn = styled.div`
 `
 
 const MixHeader = styled.div`
+  color: white;
   font-size: 26pt;
   margin-bottom: 12pt;
   ${media.tablet`
@@ -135,7 +136,7 @@ const MixHeader = styled.div`
 
 const MixLink = styled.a`
   font-size: 16pt;
-  color: black;
+  color: white;
   text-decoration: none;
   &:hover {
     text-decoration: underline;
@@ -146,6 +147,7 @@ const MixLink = styled.a`
 `
 
 const MixTracklist = styled(ReactMarkdown)`
+  color: white;
   margin-top: 50pt;
   cursor: crosshair;
   thead {
@@ -174,7 +176,7 @@ const MixTracklist = styled(ReactMarkdown)`
 const Platter = styled(Img)`
   width: 220px;
   height: 220px;
-  border: 1px solid #000;
+  border: 1px solid #fff;
   border-radius: 50%;
   background: #fff;
   animation: ${props => props.playing ? 'spin 10s linear infinite' : 'spin 10s linear infinite paused'};
@@ -215,7 +217,7 @@ const Platter = styled(Img)`
 const RecordBox = styled.div`
   width: 248px;
   height: 248px;
-  border: 1px solid #000;
+  border: 1px solid #fff;
   display: grid;
   align-items: center;
   justify-items: center;
@@ -226,7 +228,7 @@ const RecordBox = styled.div`
 
 const RecordLabel = styled.span`
   background: rgba(255, 255, 255, .5);
-  border: 1px solid #000;
+  border: 1px solid #fff;
   border-radius: 4px;
   padding: 3px 7px;
   text-transform: uppercase;
@@ -239,14 +241,15 @@ const RecordLabel = styled.span`
   `}
 `
 
-const Arrow = styled.span`
+const Arrow = styled(Link)`
   display: block;
   margin-bottom: 32px;
-  color: #000;
+  color: #fff;
   font-family: "Times New Roman";
   font-size: 24pt;
   user-select: none;
   cursor: pointer;
+  text-decoration: none;
 `
 
 const ProjectInfo = props => {
@@ -265,20 +268,22 @@ const ProjectInfo = props => {
             </RecordBox>
             {props.mixes.some((el, i) => ((el.title === props.title) && (i === props.mixes.length-1))) && <RecordLabel>Newest Mix!</RecordLabel>}
           {props.mixes.some((el, i) => ((el.title === props.title) && (i === props.mixes.length-1))) ? 
-          <NextMix className={`noHover`} to={props.slug}>
+          <NextMix className={`noHover`}>
             {props.nextMix}
           </NextMix> :
-          <NextMix className={`noHover`} to={props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).fields.slug}>
+          <NextMix className={`noHover`} to={`/${props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).fields.slug}`}>
             <div className={`noHover`}><div className={`noHover`}>Next Mix...</div><PocketRecord className={`noHover`}>{props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).title}<Img className={`noHover`} fluid={props.mixes.slice(0).reverse().find((e, i, arr) => arr[i+1].title === props.title).thumbnailImage.fluid}/></PocketRecord></div>
           </NextMix>
+          
           }
         </MixColumn>
         <DetailColumn>
-          {isBrowser && <Arrow className={`noHover`} onClick={() => window.history.back()}>←</Arrow>}
+          {isBrowser && <Arrow className={`noHover`} to="/">←</Arrow>}
           <MixHeader>{props.date}<br/>{props.title}</MixHeader>
           <MixLink className={`noHover`} href={`https:${props.mixFile}`} download={props.mixName}>Download Mix</MixLink>
           <MixTracklist className={`noHover`} source={props.trackList.tracklist} renderers={{
-                        table: (props) => <table className="noHover">{props.children}</table>
+                        table: (props) => <table className="noHover">{props.children}</table>,
+                        paragraph: (props) => <p className="noHover">{props.children}</p>
                     }}/>
         </DetailColumn>
       </DetailLayout>

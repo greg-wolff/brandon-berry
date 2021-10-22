@@ -6,7 +6,7 @@ import PlaySvg from '../assets/images/play.svg'
 import PauseSvg from '../assets/images/pause.svg'
 
 const Play = styled.img`
-  padding: 13px 0;
+  padding: 13px;
 `
 
 class PlayButton extends Component {

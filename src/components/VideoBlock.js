@@ -4,6 +4,7 @@ import media from '../utils/media'
 import Draggable from 'react-draggable'; 
 
 const VideoContainer = styled.video`  
+  cursor: grab;
   width: 266px;
   max-height: 200px;
   box-shadow: 6px 8px 4px rgba(0, 0, 0, 0.5);
@@ -14,6 +15,9 @@ const VideoContainer = styled.video`
   transform: translateY(0);
   &:hover {
     transform: translateY(-2px);
+  }
+  &:active {
+    cursor: grabbing;
   }
   margin: ${props => props.pos};
   ${media.tablet`

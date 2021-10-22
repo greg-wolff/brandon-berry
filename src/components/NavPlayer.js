@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { connect } from 'react-redux'
 import media from '../utils/media'
 
-import PlaySvg from '../assets/images/play.svg'
-import PauseSvg from '../assets/images/pause.svg'
+import PlaySvg from '../assets/images/play-white.svg'
+import PauseSvg from '../assets/images/pause-white.svg'
 
 const MarqueeDisplay = styled.div`
   width: 450px;

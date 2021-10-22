@@ -13,6 +13,7 @@ const PlayCursor = styled.div`
   align-items: center;
   justify-items: center;
   cursor: url(${props => props.playing ? PauseSvg : PlaySvg}) 18 25, auto;
+  color: white;
   ${media.tablet`
     &:before {
       content: "";
@@ -37,7 +38,11 @@ const PlayCursor = styled.div`
 
 class HoverPlay extends React.Component {
       state = {
-        disable: false
+        disable: true
+      }
+      componentDidMount() {
+        {console.log('mounted')}
+        {console.log(this.state.disable)}
       }
       render() {
         return <PlayCursor

@@ -108,7 +108,7 @@ class Logo extends Component {
     this.start()
   }
   createText = () => {
-    let emap = new THREE.TextureLoader().load(envMap2, () => {
+    let emap = new THREE.TextureLoader().load(envMap, () => {
       emap.mapping = THREE.SphericalReflectionMapping;    
       const material = (type) => ({
         "gold": [ 

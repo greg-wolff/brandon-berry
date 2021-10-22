@@ -39,7 +39,7 @@ const Nav = styled.nav`
   justify-content: space-between;
   width: 100vw;
   padding: 7px 16px;
-  z-index: 0;
+  z-index: 999;
   top: 0;
   border-bottom: 1px solid #fff;
   background: rgba(255,255,255,0);
@@ -69,6 +69,17 @@ const BackgroundVideo = styled.video`
   z-index: -1;
   filter: saturate(1.3);
 `
+
+const Background = styled.img`
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%; 
+  min-height: 100%;
+  z-index: -1;
+  background: #000000;
+`
+
 const Header = props => {
   const isHomepage = props.location.pathname === withPrefix("/");
   const isTrackUpload = props.location.pathname === withPrefix("/trackUpload/");
@@ -86,15 +97,16 @@ const Header = props => {
       { !isMobile && 
         <Logo
           text="Emerald Air"
-          material="silver"
+          material="gold"
           height={1}
           fontName="FrakturB"
           style={{ zIndex: 0, opacity: isHomepage ? 1 : 0 }}
         />
       }
-      <BackgroundVideo muted loop>
+      {/* <BackgroundVideo muted loop>
         <source src={props.video} type={`video/mp4`} />
-      </BackgroundVideo>
+      </BackgroundVideo> */}
+        <Background src={props.image} />
       </HeaderContainer> 
     </div>  
   );
@@ -108,6 +120,12 @@ const Layout = props => (
           edges {
             node {
               homepageVideo {
+                id
+                file {
+                  url
+                }
+              }
+              homepageBackground {
                 id
                 file {
                   url
@@ -138,7 +156,7 @@ const Layout = props => (
           ]}
         />
         <Player />
-        <Header location={props.location} currentName={props.currentName} playing={props.playing} video={data.allContentfulAboutPage.edges[0].node.homepageVideo.file.url}/>
+        <Header location={props.location} currentName={props.currentName} playing={props.playing} image={data.allContentfulAboutPage.edges[0].node.homepageBackground.file.url}/>
         <Desktop>
           <Transition location={props.location}>
             {props.children}

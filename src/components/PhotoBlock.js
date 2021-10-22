@@ -5,6 +5,7 @@ import media from '../utils/media'
 import Draggable from 'react-draggable'; 
 
 const PhotoContainer = styled.div`  
+  cursor: grab;
   user-select: none;
   width: 200px;
   height: 200px;
@@ -16,6 +17,9 @@ const PhotoContainer = styled.div`
   transform: translateY(0);
   &:hover {
     transform: translateY(-2px);
+  }
+  &:active {
+    cursor: grabbing;
   }
   margin: ${props => props.pos};
   ${media.tablet`

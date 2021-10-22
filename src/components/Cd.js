@@ -22,13 +22,13 @@ const CdCase = styled(Link)`
   transition: opacity 0.2s ease, transform 0.2s ease;
   transform: translateY(0);
   >div {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.5);
   }
   /* img {
     opacity: 0.5 !important;
   } */
   &:hover {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.8);
     transform: translateY(-2px);
     /* img {
       opacity: 1 !important;
